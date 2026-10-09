@@ -7,7 +7,7 @@ Status: **not deployed.** Nothing has been pushed or published yet; the owner ap
 
 | Path | What |
 |---|---|
-| `index.html` | Landing page: hero + live CSS ticker demo (sample data), how it works, features, Google TV note, FAQ, beta form, footer |
+| `index.html` | Landing page: hero TV with ticker, parlay leg-rail, and Tailer TAILING tab; how it works; why it’s fun; pricing; FAQ; beta form |
 | `beta.html` | Stand-alone beta signup page (shareable link, e.g. for the X bio) |
 | `thanks.html` | Where the form sends people after they submit |
 | `privacy.html`, `terms.html` | **DRAFT — pending attorney review** (`noindex`) |
@@ -42,7 +42,7 @@ Built in:
 
 ## Compliance checklist (applied)
 
-No sportsbook, exchange, league or team names or logos; no "Super Bowl"/"March Madness"; no lock/tout/guarantee language; nothing encourages betting. All ticker visuals are made-up and labeled **Sample data**. No app-store or "Coming soon" buttons; the CTA is the beta signup. Footer on every page: 21+ · Play responsibly · 1-800-MY-RESET · privacy · terms · support · © 2026 HuddleTape LLC. Respects `prefers-reduced-motion`.
+No sportsbook, exchange, league or team names or logos; no "Super Bowl"/"March Madness"; no lock/tout/guarantee language; nothing encourages betting. All ticker visuals are made-up and labeled **Sample data**. No app-store or "Coming soon" buttons; the CTA is the beta signup. Footer on every page: 21+ · Play responsibly · 1-800-GAMBLER · privacy · terms · support · © 2026 HuddleTape LLC. Respects `prefers-reduced-motion`.
 
 ## Deploying (after approval)
 

@@ -1,28 +1,78 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="/assets/site.css">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/assets/site.css">
 <style>
-body{margin:0;width:1200px;height:630px;overflow:hidden;background:#0A0614}
-.og{position:relative;width:1200px;height:630px;overflow:hidden;
- background:radial-gradient(60% 80% at 75% 10%,rgba(139,92,255,.35),transparent 65%),radial-gradient(45% 60% at 0% 100%,rgba(255,62,165,.22),transparent 70%),#0A0614}
-.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(140,120,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(140,120,255,.06) 1px,transparent 1px);background-size:50px 50px;
- -webkit-mask-image:radial-gradient(70% 90% at 50% 40%,#000 30%,transparent 85%)}
-.word{position:absolute;left:80px;top:78px;width:640px;filter:drop-shadow(0 0 22px rgba(255,62,165,.45))}
-.mark{position:absolute;right:86px;top:70px;width:250px;filter:drop-shadow(0 0 18px rgba(45,226,255,.35))}
-.tl{position:absolute;left:84px;top:232px;font:400 64px/1.05 Anton;color:#F5F0FF;letter-spacing:.5px}
-.tl em{font-style:normal;color:#2DE2FF;text-shadow:0 0 20px rgba(45,226,255,.6)}
-.strip{position:absolute;left:80px;right:80px;top:410px;height:110px;container-type:inline-size;border-radius:16px;overflow:hidden;
- background:rgba(10,6,20,.95);border-top:4px solid #2DE2FF;border-bottom:4px solid #FF3EA5;box-shadow:0 0 30px rgba(45,226,255,.3),0 0 30px rgba(255,62,165,.25);display:flex}
-.strip .card .who{font-size:3cqw}.strip .card .what{font-size:2.5cqw}.strip .card .pct{font-size:4.6cqw}.strip .card .side{font-size:1.7cqw}
-.strip .card .ch{font-size:1.9cqw}.strip .card .up,.strip .card .dn{font-size:2cqw}.strip .card .won{font-size:2.2cqw}.strip .card .tagpill{font-size:1.6cqw}
-.fine{position:absolute;left:84px;right:84px;bottom:46px;display:flex;justify-content:space-between;font:600 20px/1 "Barlow SC";letter-spacing:3px;color:#A99CC9}
-.fine b{color:#B6FF3B}.fine span:last-child{color:#2DE2FF}
-</style></head><body><div class="og"><div class="grid"></div>
-<img class="word" src="/assets/img/wordmark.svg" alt="">
-<img class="mark" src="/assets/img/mark.svg" alt="">
-<div class="tl">Your crew’s bets,<br><em>live on the TV.</em></div>
-<div class="strip">
- <div class="card hot"><span class="who">BIG TEX</span><span class="what">Owls to win</span><span class="side">YES</span><span class="pct">62%</span><span class="ch">chance</span><span class="up">▲9</span><span class="tagpill">SAM</span></div>
- <div class="card"><span class="who">COACH DEE</span><span class="what">Gulls +3.5</span><span class="won">WON</span></div>
- <div class="card"><span class="who">MOMO</span><span class="what">Over 47.5</span><span class="pct">38%</span><span class="dn">▼2</span></div>
+html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#0A0614}
+.og{position:relative;width:1200px;height:630px;overflow:hidden;color:#F7F4FF;background:
+  radial-gradient(50% 80% at 100% 0%,rgba(45,226,255,.22),transparent 58%),
+  radial-gradient(42% 70% at 0% 100%,rgba(255,62,165,.18),transparent 60%),
+  #0A0614;font-family:"Barlow SC","Arial Narrow",sans-serif}
+.og::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#2DE2FF,#FF3EA5)}
+.word{position:absolute;left:56px;top:36px;width:460px;height:auto}
+.mark{position:absolute;right:56px;top:28px;width:132px;height:auto}
+h1{position:absolute;left:56px;top:132px;margin:0;font:400 62px/1.02 Anton,Impact,sans-serif;letter-spacing:.3px;max-width:760px}
+h1 em{display:block;font-style:normal;color:#2DE2FF;text-shadow:0 0 18px rgba(45,226,255,.5)}
+.sub{position:absolute;left:58px;top:274px;margin:0;color:#D9D0EE;font-weight:600;font-size:24px}
+.card{position:absolute;left:56px;right:56px;top:332px;height:210px;border-radius:16px;overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(8,6,16,.2),rgba(8,6,16,.55)),
+    repeating-linear-gradient(90deg,transparent 0 8%,rgba(255,255,255,.28) 8% 8.4%),
+    linear-gradient(180deg,#123a28,#0c2418 55%,#07140f);
+  border:1px solid rgba(45,226,255,.45);box-shadow:0 0 28px rgba(45,226,255,.15)}
+.row{position:absolute;left:22px;right:22px;bottom:14px;display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.slip{width:100%}
+.tab{display:flex;align-items:center;gap:10px;padding:4px 14px 4px 4px;border-radius:12px 12px 4px 4px;
+  background:linear-gradient(180deg,#FFF0C2,#F0C14A);color:#1A1408;transform:rotate(-2deg);transform-origin:left bottom;
+  box-shadow:0 8px 16px rgba(0,0,0,.35)}
+.tab img{width:86px;height:56px;object-fit:contain;background:#140c1c;border-radius:8px}
+.tab b{display:block;font:700 13px/1 "Chakra",sans-serif;letter-spacing:.14em}
+.tab i{display:block;font:700 18px/1 "Barlow SC",sans-serif;font-style:normal}
+.slip{flex:1;background:rgba(8,6,16,.94);border:1px solid rgba(45,226,255,.75);border-radius:12px;padding:12px 14px 12px}
+.top{display:flex;align-items:baseline;gap:10px}
+.top .who{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:20px}
+.top .what{color:#D9D0EE;font-weight:600;font-size:18px}
+.top .pct{margin-left:auto;font:400 32px/1 Anton,Impact,sans-serif}
+.top small{display:block;font:700 12px/1 "Barlow SC",sans-serif;letter-spacing:.12em;color:#C6BBDF;text-align:right}
+.legs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;list-style:none;margin:10px 0 0;padding:0}
+.legs li{font-weight:700;font-size:15px}
+.bar{display:block;height:6px;border-radius:99px;background:#B6FF3B;box-shadow:0 0 8px #B6FF3B;margin-bottom:5px}
+.legs .live .bar{background:#2DE2FF;box-shadow:0 0 8px #2DE2FF}
+.st{display:block;margin-top:2px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#B6FF3B}
+.legs .live .st{color:#2DE2FF}
+.fine{position:absolute;left:58px;right:58px;bottom:22px;display:flex;justify-content:space-between;font-weight:700;font-size:15px;letter-spacing:.16em;color:#C6BBDF}
+.fine b{color:#B6FF3B}
+.fine span:last-child{color:#2DE2FF}
+</style>
+</head>
+<body>
+<div class="og">
+  <img class="word" src="/assets/img/wordmark.svg" alt="">
+  <img class="mark" src="/assets/img/mark.svg" alt="">
+  <h1>Your crew’s bets, <em>live on the TV.</em></h1>
+  <p class="sub">A neon ticker over whatever’s on. Join from any phone browser — no app.</p>
+  <div class="card">
+    <div class="row">
+      <div class="tab">
+        <img src="/assets/img/tailer.webp" alt="" width="220" height="145">
+        <span><b>TAILING</b><i>SAM</i></span>
+      </div>
+      <div class="slip">
+        <div class="top">
+          <span class="who">Kayla</span>
+          <span class="what">3-leg parlay</span>
+          <span class="pct">21%<small>CHANCE</small></span>
+        </div>
+        <ol class="legs">
+          <li><span class="bar"></span>Owls<span class="st">Hit</span></li>
+          <li><span class="bar"></span>Over 47.5<span class="st">Hit</span></li>
+          <li class="live"><span class="bar"></span>Moose −2.5<span class="st">Live</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="fine"><span><b>SAMPLE DATA</b> · 21+ · PLAY RESPONSIBLY</span><span>HUDDLETAPE.APP</span></div>
 </div>
-<div class="fine"><span><b>SAMPLE DATA</b> · 21+ · PLAY RESPONSIBLY · GOOGLE TV</span><span>HUDDLETAPE.APP</span></div>
-</div></body></html>
+</body>
+</html>
