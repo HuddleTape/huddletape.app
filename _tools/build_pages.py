@@ -14,10 +14,10 @@ SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 URL = "https://huddletape.app"
 EMAIL = "huddletape.app@gmail.com"
 DESC = (
-    "HuddleTape puts your crew’s open bets on a ticker over the game, on Google TV. "
+    "Live markets and your crew’s positions, over the game. On Google TV. "
     "Join from any phone browser. No app. 30-day free trial, then $1.99/mo or $9.99/yr. 21+."
 )
-OG_ALT = "HuddleTape on a television, with a phone in front and a ticker of sample bets"
+OG_ALT = "HuddleTape on a television: prediction markets and the crew’s positions over the game. Sample data."
 
 
 def qr_svg():
@@ -99,7 +99,7 @@ FOOT = f"""<footer class="foot">
   <div class="wrap foot-top">
     <div>
       <img class="word" src="/assets/img/wordmark.svg" alt="HuddleTape" width="148" height="30">
-      <p class="tag">Watch-party ticker for Google TV.</p>
+      <p class="tag">Live markets on Google TV.</p>
     </div>
     <nav aria-label="Product">
       <p class="col-label">Product</p>
@@ -122,7 +122,7 @@ FOOT = f"""<footer class="foot">
     </div>
   </div>
   <div class="wrap foot-legal">
-    <p>HuddleTape doesn't take or place wagers and isn't a sportsbook. Not affiliated with any sportsbook, exchange, team, or league. Pictures show sample data.</p>
+    <p>Not affiliated with any sportsbook, exchange, team, or league. Pictures show sample data.</p>
     <p>© 2026 HuddleTape LLC</p>
   </div>
 </footer>
@@ -347,19 +347,18 @@ def beta_block(source, heading="h2"):
 
 
 INDEX = (
-    head("HuddleTape · The crew’s bets, on the TV", extra=json_ld())
+    head("HuddleTape · Prediction markets, on your TV", extra=json_ld())
     + header("#beta")
     + f"""<main id="main">
 <section class="hero" aria-labelledby="hero-h">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <h1 id="hero-h">The crew’s<br>bets.<br>On the TV.</h1>
-      <p class="lede">Open bets on a ticker, over the game. Friends add them from any phone browser. No app.</p>
+      <h1 id="hero-h">Prediction<br>markets.<br>On your TV.</h1>
+      <p class="lede">Live markets and your crew’s positions, over the game.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#beta">Join the beta</a>
         <a class="text-link" href="#how">How it works</a>
       </div>
-      <p class="assure">Shows bets. Never takes them.</p>
     </div>
     {demo()}
   </div>
@@ -462,7 +461,7 @@ INDEX = (
         <p>Join from any browser. No app.</p>
       </li>
     </ul>
-    <p class="fine">The private beta is free for hosts. These prices start at the Google Play launch in January 2027, billed through Google Play after the trial. This pays for the display. HuddleTape doesn’t take or place bets.</p>
+    <p class="fine">The private beta is free for hosts. These prices start at the Google Play launch in January 2027, billed through Google Play after the trial. This pays for the display.</p>
     <a class="btn btn-primary" href="#beta">Join the beta</a>
   </div>
 </section>
@@ -486,7 +485,7 @@ INDEX = (
 BETA = (
     head(
         "Join the beta",
-        "Sign up for the HuddleTape private beta: a neon watch-party ticker for Google TV. Hosts around Thanksgiving 2026. 21+.",
+        "Sign up for the HuddleTape private beta. Live markets and your crew’s positions on Google TV. Hosts around Thanksgiving 2026. 21+.",
         "/beta.html",
     )
     + header("#beta")
