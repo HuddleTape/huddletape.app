@@ -14,10 +14,10 @@ SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 URL = "https://huddletape.app"
 EMAIL = "huddletape.app@gmail.com"
 DESC = (
-    "HuddleTape puts your crew’s open bets on a neon ticker over whatever’s on your Google TV. "
-    "Join from any phone browser — no app. 30-day free trial, then $1.99/mo or $9.99/yr. 21+."
+    "HuddleTape puts your crew’s open bets on a ticker over the game, on Google TV. "
+    "Join from any phone browser. No app. 30-day free trial, then $1.99/mo or $9.99/yr. 21+."
 )
-OG_ALT = "HuddleTape wordmark over a TV ticker with a parlay leg rail and Tailer’s gold TAILING tab"
+OG_ALT = "HuddleTape on a television, with a phone in front and a ticker of sample bets"
 
 
 def qr_svg():
@@ -76,37 +76,53 @@ def head(title, desc=DESC, path="/", robots="index,follow", extra=""):
 
 def header(beta_href):
     return f"""<header class="top">
-  <div class="wrap">
-    <a class="brand" href="/" aria-label="HuddleTape home">
-      <img class="mark" src="/assets/img/mark.svg" alt="" width="38" height="23">
-      <img class="word" src="/assets/img/wordmark.svg" alt="HuddleTape" width="108" height="22">
-    </a>
-    <nav class="nav" aria-label="Main">
-      <a class="hide-sm" href="/#how">How it works</a>
-      <a class="hide-sm" href="/#why">Why it’s fun</a>
-      <a class="hide-sm" href="/#pricing">Pricing</a>
-      <a class="hide-sm" href="/#faq">FAQ</a>
-      <a class="btn btn-primary btn-sm" href="{beta_href}">Join the beta</a>
-    </nav>
+  <a class="promo" href="{beta_href}">Private beta · Thanksgiving 2026<span class="promo-rest"> · Google Play · January 2027</span></a>
+  <div class="bar">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="HuddleTape home">
+        <img class="word" src="/assets/img/wordmark.svg" alt="HuddleTape" width="148" height="30">
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a class="hide-md" href="/#how">How it works</a>
+        <a class="hide-lg" href="/#tape">The tape</a>
+        <a class="hide-md" href="/#pricing">Pricing</a>
+        <a class="hide-lg" href="/#faq">FAQ</a>
+        <a class="btn btn-primary btn-sm" href="{beta_href}">Join the beta</a>
+      </nav>
+    </div>
   </div>
 </header>
 """
 
 
 FOOT = f"""<footer class="foot">
-  <div class="wrap">
-    <div class="foot-brand">
-      <img class="word" src="/assets/img/wordmark.svg" alt="HuddleTape" width="118" height="24">
-      <p>The watch-party ticker for Google TV.</p>
+  <div class="wrap foot-top">
+    <div>
+      <img class="word" src="/assets/img/wordmark.svg" alt="HuddleTape" width="148" height="30">
+      <p class="tag">Watch-party ticker for Google TV.</p>
     </div>
-    <p class="rg"><b>21+</b> · Play responsibly · Set a budget before kickoff · Problem gambling? Call or text <a href="tel:18004262537">1-800-GAMBLER</a></p>
-    <p>HuddleTape doesn't take or place wagers and isn't a sportsbook. Not affiliated with any sportsbook, exchange, team or league. Ticker images show sample data.</p>
-    <nav aria-label="Footer">
+    <nav aria-label="Product">
+      <p class="col-label">Product</p>
+      <a href="/#how">How it works</a>
+      <a href="/#tape">The tape</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+    <nav aria-label="Company">
+      <p class="col-label">Company</p>
+      <a href="/beta.html">Join the beta</a>
       <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Terms</a>
-      <a href="/beta.html">Join the beta</a>
-      <a href="mailto:{EMAIL}">Support: {EMAIL}</a>
+      <a href="mailto:{EMAIL}">Support</a>
     </nav>
+  </div>
+  <div class="rg-bar">
+    <div class="wrap">
+      <p><span class="age">21+</span> Play responsibly. Set a budget before kickoff. Problem gambling? Call or text <a href="tel:18004262537">1-800-GAMBLER</a>.</p>
+    </div>
+  </div>
+  <div class="wrap foot-legal">
+    <p>HuddleTape doesn't take or place wagers and isn't a sportsbook. Not affiliated with any sportsbook, exchange, team, or league. Pictures show sample data.</p>
     <p>© 2026 HuddleTape LLC</p>
   </div>
 </footer>
@@ -137,54 +153,67 @@ def demo():
         "A gold tab reads TAILING, Sam, above Kayla’s 3-leg parlay at 21 percent: "
         "Owls (hit), Over 47.5 (hit), and Moose −2.5 (live). "
         "A ticker scrolls sample bets for Big Tex, Coach Dee, Momo, Jake, and Rio. "
-        "A QR code invites friends to scan and add picks they already have. Room code DEN."
+        "A QR code invites friends to scan and add picks they already have. Room code DEN. "
+        "A phone in front shows adding an open bet by screenshot or a read-only connected account."
     )
-    return f"""<figure class="demo">
+    return f"""<figure class="stage">
   <input class="pause" id="pause-demo" type="checkbox">
-  <div class="tv">
-    <div class="screen" role="img" aria-label="{html.escape(label)}">
-      <div class="scene" aria-hidden="true">
-        <div class="sky"></div>
-        <div class="stands"></div>
-        <div class="lights"><i></i><i></i><i></i><i></i></div>
-        <div class="pitch"></div>
-        <div class="ball"></div>
-        <span class="sample-tag">Sample</span>
-        <div class="bug"><span>Owls 17</span><span>Gulls 14</span><b>Q3</b></div>
-      </div>
-      <div class="lower" aria-hidden="true">
-        <div class="feature">
-          <div class="gold-tab">
-            <img src="/assets/img/tailer.webp" alt="" width="220" height="145">
-            <span><b>Tailing</b><i>Sam</i></span>
-          </div>
-          <div class="slip">
-            <div class="slip-top">
-              <span class="who">Kayla</span>
-              <span class="what">3-leg parlay</span>
-              <span class="pct">21%<small>chance</small></span>
+  <div class="set">
+    <div class="tv">
+      <div class="screen" role="img" aria-label="{html.escape(label)}">
+        <div class="scene" aria-hidden="true">
+          <div class="sky"></div>
+          <div class="bowl"></div>
+          <div class="lamps"></div>
+          <div class="turf"><span>20</span><span>30</span><span>40</span><span>50</span><span>40</span></div>
+          <div class="vignette"></div>
+          <div class="bug"><span class="bug-live">Live</span><span class="bug-team">Owls <b>17</b></span><span class="bug-team">Gulls <b>14</b></span><span class="bug-q">Q3<span>8:42</span></span></div>
+          <span class="sample-tag">Sample</span>
+        </div>
+        <div class="lower" aria-hidden="true">
+          <div class="feature">
+            <div class="gold-tab">
+              <img src="/assets/img/tailer.webp" alt="" width="220" height="145">
+              <span><b>Tailing</b><i>Sam</i></span>
             </div>
-            <ol class="legs">
-              <li class="hit"><span class="rail"></span><span class="leg-name">Owls</span><span class="leg-st">Hit</span></li>
-              <li class="hit d2"><span class="rail"></span><span class="leg-name">Over 47.5</span><span class="leg-st">Hit</span></li>
-              <li class="live"><span class="rail"></span><span class="leg-name">Moose −2.5</span><span class="leg-st">Live</span></li>
-            </ol>
+            <div class="slip">
+              <div class="slip-top">
+                <span class="who">Kayla</span>
+                <span class="what">3-leg parlay</span>
+                <span class="pct">21%<small>chance</small></span>
+              </div>
+              <ol class="legs">
+                <li class="hit"><span class="rail"></span><span class="leg-name">Owls</span><span class="leg-st">Hit</span></li>
+                <li class="hit d2"><span class="rail"></span><span class="leg-name">Over 47.5</span><span class="leg-st">Hit</span></li>
+                <li class="live"><span class="rail"></span><span class="leg-name">Moose −2.5</span><span class="leg-st">Live</span></li>
+              </ol>
+            </div>
+          </div>
+          <div class="ticker">
+            <div class="tk-brand"><img src="/assets/img/mark.svg" alt="" width="26" height="16"></div>
+            <div class="tk-rail"><div class="tk-track">{cards}{cards}</div></div>
+            <div class="qr">{qr_svg()}<div><div class="q1">Scan to add</div><div class="q2">ROOM</div><div class="q3">DEN</div></div></div>
           </div>
         </div>
-        <div class="ticker">
-          <div class="tk-brand"><img src="/assets/img/mark.svg" alt="" width="26" height="16"></div>
-          <div class="tk-rail"><div class="tk-track">{cards}{cards}</div></div>
-          <div class="qr">{qr_svg()}<div><div class="q1">Scan to add<br>your picks</div><div class="q2">ROOM</div><div class="q3">DEN</div></div></div>
-        </div>
       </div>
+      <div class="chin" aria-hidden="true"><span class="led"></span></div>
     </div>
-    <div class="chin" aria-hidden="true"><span class="led"></span></div>
+    <div class="stand" aria-hidden="true"></div>
+    <div class="phone" aria-hidden="true">
+      <div class="phone-screen">
+        <div class="ph-top"><img src="/assets/img/mark.svg" alt="" width="22" height="14"><span>Room DEN</span></div>
+        <p class="ph-h">Add an open bet</p>
+        <div class="ph-row"><b>Screenshot</b><span>A slip you already have</span></div>
+        <div class="ph-row"><b>Connected account</b><span>Read-only</span></div>
+        <div class="ph-slip"><span>Kayla</span><span>3-leg</span><b>21%</b></div>
+        <p class="ph-note">Sample</p>
+      </div>
+      <div class="home-bar"></div>
+    </div>
   </div>
-  <div class="neck" aria-hidden="true"></div>
-  <div class="stand" aria-hidden="true"></div>
   <figcaption>
-    <span><b>SAMPLE DATA</b><span class="cap-more"> · Made-up names, teams, and numbers.</span></span>
-    <label class="pause-label" for="pause-demo"><span class="when-play">Pause sample</span><span class="when-paused">Play sample</span></label>
+    <span><b>Sample data.</b> Made-up names, teams, and numbers.</span>
+    <label class="pause-label" for="pause-demo"><span class="when-play">Pause</span><span class="when-paused">Play</span></label>
   </figcaption>
 </figure>"""
 
@@ -306,17 +335,11 @@ def form(source):
 
 
 def beta_block(source, heading="h2"):
-    return f"""<section class="sec" id="beta" aria-labelledby="beta-h">
+    return f"""<section class="band" id="beta" aria-labelledby="beta-h">
   <div class="wrap beta">
     <div>
-      <p class="kicker">Thanksgiving 2026</p>
-      <{heading} id="beta-h">Join the private beta</{heading}>
-      <p class="intro">A small group of Google TV hosts, then the Google Play launch in January 2027. You get the room. The crew joins free.</p>
-      <ul class="perks">
-        <li>Early access for your whole crew</li>
-        <li>Free during the beta</li>
-        <li>A direct line to the team — tell us what the tape should do next</li>
-      </ul>
+      <{heading} id="beta-h">Join the beta.</{heading}>
+      <p class="sub">Host spots around Thanksgiving 2026. Google Play in January 2027. The crew joins free from a phone browser. Free during the beta.</p>
     </div>
     {form(source)}
   </div>
@@ -324,140 +347,128 @@ def beta_block(source, heading="h2"):
 
 
 INDEX = (
-    head("HuddleTape · Your crew’s bets, live on the TV", extra=json_ld())
+    head("HuddleTape · The crew’s bets, on the TV", extra=json_ld())
     + header("#beta")
     + f"""<main id="main">
 <section class="hero" aria-labelledby="hero-h">
   <div class="wrap hero-grid">
-    <div class="hero-lead">
-      <p class="eyebrow">21+ · Watch-party ticker</p>
-      <h1 id="hero-h">Your crew’s bets, <em>live on the TV.</em></h1>
-      <p class="lede">Friends add the bets they already have from any phone browser — no app. A neon ticker floats over whatever’s on.</p>
-    </div>
-    {demo()}
-    <div class="hero-rest">
+    <div class="hero-copy">
+      <h1 id="hero-h">The crew’s<br>bets.<br>On the TV.</h1>
+      <p class="lede">Open bets on a ticker, over the game. Friends add them from any phone browser. No app.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#beta">Join the beta</a>
-        <a class="btn btn-ghost" href="#how">How it works</a>
+        <a class="text-link" href="#how">How it works</a>
       </div>
       <p class="assure">Shows bets. Never takes them.</p>
-      <ul class="chips">
-        <li>No phone app</li>
-        <li>30-day free trial</li>
-        <li>Guests join free</li>
-      </ul>
     </div>
+    {demo()}
   </div>
 </section>
 
-<section class="sec" id="how" aria-labelledby="how-h">
+<section class="band" id="how" aria-labelledby="how-h">
   <div class="wrap">
-    <p class="kicker">Three steps</p>
-    <h2 id="how-h">How it works</h2>
-    <p class="intro">Nobody has to pass a phone around the couch.</p>
+    <h2 id="how-h">Three steps.</h2>
     <ol class="steps">
       <li>
         <span class="n">01</span>
         <h3>Open a room</h3>
-        <p>Put HuddleTape on your Google TV or Android TV. The ticker sits on the bottom edge, over the game, a stream, or multiview.</p>
+        <p>HuddleTape on Google TV or Android TV. The ticker sits on the picture.</p>
       </li>
       <li>
         <span class="n">02</span>
-        <h3>The crew scans in</h3>
-        <p>The QR on the TV opens a page in any phone browser. No app to download, and no account to set up.</p>
+        <h3>Scan in</h3>
+        <p>The QR on the TV opens in any phone browser. No app.</p>
       </li>
       <li>
         <span class="n">03</span>
-        <h3>Open bets hit the tape</h3>
-        <p>Add a screenshot of a slip you already have, or pull open bets from a connected account. Names, picks, and a percent scroll with the room.</p>
+        <h3>On the tape</h3>
+        <p>Add a screenshot, or connect an account. Names and picks scroll with the room.</p>
       </li>
     </ol>
-    <ul class="devices">
-      <li><b>On the TV</b> Google TV and Android TV.</li>
-      <li><b>In the room</b> Any phone browser. No app.</li>
-      <li><b>Not yet</b> Fire TV, Roku, Apple TV, and Samsung or LG apps. A Google TV streamer in an HDMI port covers those sets.</li>
-    </ul>
+    <p class="note">Google TV and Android TV. Fire TV, Roku, Apple TV, and Samsung or LG apps aren’t supported yet. A Google TV streamer in an HDMI port works.</p>
   </div>
 </section>
 
-<section class="sec" id="why" aria-labelledby="why-h">
+<section id="tape" aria-labelledby="tape-h">
   <div class="wrap">
-    <p class="kicker">On the glass</p>
-    <h2 id="why-h">Why it’s fun</h2>
-    <p class="intro">The jokes land on the biggest screen in the house. Tailer handles the introductions.</p>
-    <div class="why">
-      <article>
-        <div class="why-vis" aria-hidden="true">
+    <div class="split">
+      <div class="copy">
+        <h2 id="tape-h">Your name on the bet.</h2>
+        <p>Tail a friend’s bet. Tailer puts your name on it. Nothing is placed.</p>
+      </div>
+      <div class="crop">
+        <div class="crop-scene" aria-hidden="true"></div>
+        <div class="crop-ui">
           <div class="gold-tab">
             <img src="/assets/img/tailer.webp" alt="" width="220" height="145">
             <span><b>Tailing</b><i>Sam</i></span>
           </div>
-          <div class="mini-slip"><span>Big Tex</span><span class="dim">Owls to win</span><span class="pct">62%</span></div>
-        </div>
-        <h3>Tailer names you</h3>
-        <p>Tail a friend’s bet and a gold tab rises over it with your name. Nothing gets placed. It’s a name on the glass.</p>
-      </article>
-      <article>
-        <div class="why-vis" aria-hidden="true">
-          <div class="mini-slip"><span>Kayla</span><span class="dim">3-leg parlay</span><span class="pct">21%</span></div>
-          <div class="why-legs">
-            <span><i></i>Owls<em>Hit</em></span>
-            <span><i></i>Over 47.5<em>Hit</em></span>
-            <span class="wait"><i></i>Moose −2.5<em>Live</em></span>
+          <div class="slip">
+            <div class="slip-top">
+              <span class="who">Big Tex</span>
+              <span class="what">Owls to win</span>
+              <span class="pct">62%</span>
+            </div>
           </div>
         </div>
-        <h3>Every leg, in lights</h3>
-        <p>A parlay keeps a rail. Each leg lights up when it hits, so the couch can follow without crowding one phone.</p>
-      </article>
+        <span class="sample-tag">Sample</span>
+      </div>
+    </div>
+    <div class="split flip">
+      <div class="copy">
+        <h2>Legs light up.</h2>
+        <p>A parlay shows every leg. Each one lights when it hits.</p>
+      </div>
+      <div class="crop">
+        <div class="crop-scene" aria-hidden="true"></div>
+        <div class="crop-ui">
+          <div class="slip">
+            <div class="slip-top">
+              <span class="who">Kayla</span>
+              <span class="what">3-leg parlay</span>
+              <span class="pct">21%</span>
+            </div>
+            <ol class="vlegs">
+              <li class="hit"><span class="rail"></span><span>Owls</span><em>Hit</em></li>
+              <li class="hit"><span class="rail"></span><span>Over 47.5</span><em>Hit</em></li>
+              <li class="live"><span class="rail"></span><span>Moose −2.5</span><em>Live</em></li>
+            </ol>
+          </div>
+        </div>
+        <span class="sample-tag">Sample</span>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="band" aria-labelledby="band-h">
-  <div class="wrap band-inner">
-    <div>
-      <p class="kicker">Founding hosts</p>
-      <h2 id="band-h">Get the ticker on your TV first.</h2>
-      <p>Private beta around Thanksgiving 2026. Google Play in January 2027.</p>
-    </div>
-    <a class="btn btn-primary" href="#beta">Join the beta</a>
-  </div>
-</section>
-
-<section class="sec" id="pricing" aria-labelledby="price-h">
+<section class="band" id="pricing" aria-labelledby="price-h">
   <div class="wrap">
-    <p class="kicker">After the trial</p>
-    <h2 id="price-h">The TV owner pays. The crew doesn’t.</h2>
-    <p class="intro">30 days free, then one small subscription for the set that hosts the room. Joining from a phone is free.</p>
-    <div class="price-grid">
-      <article class="price price-year">
-        <h3>Yearly</h3>
+    <h2 id="price-h">The TV owner pays.</h2>
+    <p class="sub">30 days free. Then one price for the set that hosts the room.</p>
+    <ul class="board">
+      <li class="year">
+        <h3>Year</h3>
         <p class="amt">$9.99<span class="per">/yr</span></p>
-        <p class="trial">30-day free trial</p>
-        <ul>
-          <li>For the TV that hosts the room</li>
-          <li>$9.99 for the year, versus $23.88 monthly</li>
-        </ul>
-      </article>
-      <article class="price">
-        <h3>Monthly</h3>
+        <p>30-day free trial. $9.99 for the year, or $23.88 if billed monthly.</p>
+      </li>
+      <li>
+        <h3>Month</h3>
         <p class="amt">$1.99<span class="per">/mo</span></p>
-        <p class="trial">30-day free trial</p>
-        <ul>
-          <li>Same ticker, billed each month</li>
-          <li>Cancel anytime in Google Play</li>
-        </ul>
-      </article>
-    </div>
-    <p class="guest"><b>Joining from a phone is $0.</b> Any browser, no app, no trial to use up. The subscription is only for the TV owner.</p>
-    <p class="fine">The private beta is free for hosts. The prices above start with the Google Play launch in January 2027, billed through Google Play after the trial. HuddleTape doesn’t take or place bets — this pays for the TV display.</p>
+        <p>30-day free trial. Same ticker. Cancel in Google Play.</p>
+      </li>
+      <li>
+        <h3>Phone</h3>
+        <p class="amt">$0</p>
+        <p>Join from any browser. No app.</p>
+      </li>
+    </ul>
+    <p class="fine">The private beta is free for hosts. These prices start at the Google Play launch in January 2027, billed through Google Play after the trial. This pays for the display. HuddleTape doesn’t take or place bets.</p>
     <a class="btn btn-primary" href="#beta">Join the beta</a>
   </div>
 </section>
 
-<section class="sec" id="faq" aria-labelledby="faq-h">
+<section class="band" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
-    <p class="kicker">Straight answers</p>
     <h2 id="faq-h">FAQ</h2>
     <div class="faq">
     {faq_html()}
@@ -492,7 +503,7 @@ THANKS = (
       <img src="/assets/img/tailer.webp" alt="Tailer, the HuddleTape golden retriever" width="220" height="145">
     </div>
     <h1>You’re on the list.</h1>
-    <p>Thanks for signing up. We’ll email you when a host spot opens, around Thanksgiving. Your crew joins from their phones — no app, and free.</p>
+    <p>We’ll email you when a host spot opens. Your crew joins from a phone browser. No app, and free.</p>
     <a class="btn btn-primary" href="/">Back to HuddleTape</a>
   </div>
 </main>
@@ -501,15 +512,15 @@ THANKS = (
 )
 
 NOTFOUND = (
-    head("Page not found", "This page fumbled.", "/404.html", "noindex")
+    head("Page not found", "That page isn’t here.", "/404.html", "noindex")
     + header("/beta.html")
     + """<main id="main" class="wrap center-page">
   <div>
     <div class="mascot-frame">
       <img src="/assets/img/tailer.webp" alt="" width="220" height="145">
     </div>
-    <h1>This page fumbled.</h1>
-    <p>Nothing on the tape at that address.</p>
+    <h1>Page not found.</h1>
+    <p>Nothing at that address.</p>
     <a class="btn btn-primary" href="/">Back to HuddleTape</a>
   </div>
 </main>

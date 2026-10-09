@@ -7,7 +7,7 @@ Status: **not deployed.** Nothing has been pushed or published yet; the owner ap
 
 | Path | What |
 |---|---|
-| `index.html` | Landing page: hero TV with ticker, parlay leg-rail, and Tailer TAILING tab; how it works; why it’s fun; pricing; FAQ; beta form |
+| `index.html` | Landing page: TV and phone product shot, ticker, parlay legs, Tailer TAILING tab; three steps; pricing; FAQ; beta form |
 | `beta.html` | Stand-alone beta signup page (shareable link, e.g. for the X bio) |
 | `thanks.html` | Where the form sends people after they submit |
 | `privacy.html`, `terms.html` | **DRAFT — pending attorney review** (`noindex`) |
