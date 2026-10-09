@@ -304,6 +304,7 @@ def form(source):
   <input type="hidden" name="_next" value="{URL}/thanks.html">
   <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_autoresponse" value="You&#39;re on the HuddleTape beta list. Thanks for signing up! We&#39;ll email you when your invite is ready. Until then, follow @HuddleTape on X for sneak peeks. — The HuddleTape team">
   <input type="hidden" name="source" value="{source}">
   <div class="hp" aria-hidden="true">
     <label for="hp-{source}">Leave this field empty</label>
