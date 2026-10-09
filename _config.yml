@@ -1,0 +1,5 @@
+# GitHub Pages (Jekyll) settings: serve files as-is; keep tooling/docs out of the published site.
+exclude:
+  - README.md
+  - _tools
+  - _previews
