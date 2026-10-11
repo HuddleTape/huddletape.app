@@ -417,7 +417,7 @@ INDEX = (
     <div class="split flip">
       <div class="copy">
         <h2>Legs light up.</h2>
-        <p>A parlay shows every leg. Each one lights when it hits.</p>
+        <p>A parlay shows every leg with its live chance, and each one checks off when it hits.</p>
       </div>
       <div class="crop">
         <div class="crop-scene" aria-hidden="true"></div>
