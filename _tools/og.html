@@ -8,51 +8,53 @@ html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#0A0614}
 .og{position:relative;width:1200px;height:630px;overflow:hidden;color:#F4F1F8;background:#0A0614;font-family:"Barlow SC","Arial Narrow",sans-serif}
 .bar{height:18px;background:#2DE2FF}
 .word{position:absolute;left:56px;top:48px;width:280px;height:auto}
-h1{position:absolute;left:56px;top:140px;margin:0;width:500px;font:700 78px/.88 "Barlow SC","Arial Narrow",sans-serif;letter-spacing:-.02em;text-transform:uppercase}
-.sub{position:absolute;left:58px;top:390px;margin:0;max-width:480px;color:#C9C4D4;font-weight:600;font-size:26px;line-height:1.25;text-transform:none}
-.note{position:absolute;left:58px;bottom:36px;margin:0;color:#B7B1C6;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:16px}
-.plate{position:absolute;right:48px;top:78px;width:520px;height:490px;border-radius:4px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:
+.kicker{position:absolute;left:58px;top:128px;margin:0;color:#2DE2FF;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:18px}
+h1{position:absolute;left:56px;top:168px;margin:0;width:520px;font:700 84px/.88 "Barlow SC","Arial Narrow",sans-serif;letter-spacing:-.02em;text-transform:uppercase}
+.sub{position:absolute;left:58px;top:348px;margin:0;max-width:480px;color:#C9C4D4;font-weight:600;font-size:24px;line-height:1.25;text-transform:none}
+.note{position:absolute;left:58px;bottom:40px;margin:0;color:#F4F1F8;font-weight:700;font-size:20px;text-transform:none;letter-spacing:0}
+.plate{position:absolute;right:48px;top:72px;width:540px;height:490px;border-radius:4px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:
   radial-gradient(ellipse at 50% 100%,rgba(18,72,36,.9),transparent 62%),
   linear-gradient(180deg,#101826,#07140e 70%)}
-.ui{position:absolute;left:28px;right:28px;bottom:28px}
-.tab{display:inline-flex;align-items:center;gap:10px;margin:0 0 -6px 10px;padding:4px 14px 4px 4px;border-radius:4px 4px 4px 2px;background:linear-gradient(180deg,#FFF0C2,#E8B83A);color:#1A1408;position:relative;z-index:1}
-.tab img{width:92px;height:60px;object-fit:contain;background:#140c1c;border-radius:2px}
-.tab b{display:block;font:700 13px/1 "Chakra",sans-serif;letter-spacing:.14em}
-.tab i{display:block;font:700 22px/1 "Barlow SC",sans-serif;font-style:normal}
-.slip{position:relative;z-index:2;background:rgba(8,8,12,.94);border:1px solid rgba(45,226,255,.8);border-radius:4px;padding:16px 16px 14px}
-.top{display:flex;align-items:baseline;gap:10px}
-.who{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:22px}
-.what{color:#C9C4D4;font-weight:600;font-size:20px}
-.pct{margin-left:auto;font:400 40px/1 Anton,Impact,sans-serif}
-.legs{display:grid;gap:8px;list-style:none;margin:12px 0 0;padding:0}
-.legs li{display:grid;grid-template-columns:1fr auto;font-weight:700;font-size:18px}
-.legs i{grid-column:1/-1;display:block;height:5px;border-radius:2px;background:#B6FF3B;margin-bottom:4px;font-style:normal}
-.legs .live i{background:#2DE2FF}
-.legs em{font-style:normal;letter-spacing:.1em;text-transform:uppercase;font-size:14px;color:#B6FF3B}
-.legs .live em{color:#2DE2FF}
+.ui{position:absolute;left:22px;right:22px;bottom:22px}
 .sample{position:absolute;top:14px;right:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13px;border:1px solid rgba(255,255,255,.45);padding:4px 6px;border-radius:2px}
+.parlay{display:grid;grid-template-columns:1fr 1.15fr;gap:12px;align-items:center;padding:14px 14px 12px 12px;background:rgba(8,8,12,.94);border:1px solid rgba(45,226,255,.8);border-left:3px solid #F0C14A;border-radius:4px;box-shadow:inset 0 -2px 0 #2DE2FF}
+.who{margin:0;color:#F0C14A;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.title{margin:4px 0 0;font-weight:700;font-size:22px;letter-spacing:.04em;text-transform:uppercase}
+.chance{display:flex;align-items:baseline;gap:8px;margin:8px 0 0}
+.big{font:400 42px/.9 Anton,Impact,sans-serif}
+.word2{color:#C9C4D4;font-weight:600;font-size:16px}
+.up{color:#B6FF3B;font-weight:700;font-size:16px}
+.dn{color:#FF3EA5;font-weight:700;font-size:13px}
+.plegs{list-style:none;margin:0;padding:0 0 0 12px;border-left:1px solid rgba(255,255,255,.14);display:grid;gap:7px}
+.plegs li{display:grid;grid-template-columns:18px 1fr auto;gap:6px;align-items:center;font-weight:700;font-size:15px}
+.n{width:18px;height:18px;border-radius:50%;background:#fff;color:#12141c;font:700 11px/18px "Barlow SC",sans-serif;text-align:center}
+.meta{display:block;color:#C9C4D4;font-weight:600;font-size:12px}
+.lp{color:#2DE2FF;font:400 18px/1 Anton,Impact,sans-serif}
+.ck{width:14px;height:14px;color:#B6FF3B}
 </style>
 </head>
 <body>
 <div class="og">
   <div class="bar"></div>
   <img class="word" src="/assets/img/wordmark.svg" alt="">
-  <h1>Prediction<br>markets.<br>On your TV.</h1>
-  <p class="sub">Live markets and your crew’s positions, over the game.</p>
-  <p class="note">21+</p>
+  <p class="kicker">Coming soon</p>
+  <h1>Watch it<br>together.</h1>
+  <p class="sub">Your crew’s prediction-market picks, on a ticker over whatever’s on TV.</p>
+  <p class="note">HuddleTape doesn’t take or place bets. 21+</p>
   <div class="plate">
     <span class="sample">Sample</span>
     <div class="ui">
-      <div class="tab">
-        <img src="/assets/img/tailer.webp" alt="">
-        <span><b>TAILING</b><i>Sam</i></span>
-      </div>
-      <div class="slip">
-        <div class="top"><span class="who">Kayla</span><span class="what">3-leg parlay</span><span class="pct">21%</span></div>
-        <ol class="legs">
-          <li><i></i>Owls<em>Hit</em></li>
-          <li><i></i>Over 47.5<em>Hit</em></li>
-          <li class="live"><i></i>Moose −2.5<em>Live</em></li>
+      <div class="parlay">
+        <div>
+          <p class="who">Kayla</p>
+          <p class="title">4-leg parlay</p>
+          <p class="chance"><span class="big">48%</span><span class="word2">chance</span><span class="up">▲26</span></p>
+        </div>
+        <ol class="plegs">
+          <li><span class="n">1</span><span>Owls −6.5</span><svg class="ck" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 8.3 6.4 11.5 12.8 4.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
+          <li><span class="n">2</span><span>Over 47.5</span><svg class="ck" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 8.3 6.4 11.5 12.8 4.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
+          <li><span class="n">3</span><span>Moose −2.5<span class="meta">Q3 · 21–14</span></span><span><span class="lp">63%</span> <span class="up">▲5</span></span></li>
+          <li><span class="n">4</span><span>Gulls +3.5<span class="meta">Q4 · 17–20</span></span><span><span class="lp">41%</span> <span class="dn">▼8</span></span></li>
         </ol>
       </div>
     </div>
