@@ -619,7 +619,11 @@ OPT_D = (
     </div>
   </div>
   <div class="lines">
-    <h1>{MOTTO}</h1>
+    <h1>
+      <span class="phrase">Your picks.</span>
+      <span class="phrase">Your screen.</span>
+      <span class="phrase accent">Your moment.</span>
+    </h1>
     <p class="tuned">Stay tuned.</p>
   </div>
 </main>

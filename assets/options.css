@@ -187,15 +187,33 @@ body.opt{overflow-x:clip}
   .tape{mask-image:none;-webkit-mask-image:none}
 }
 
-/* D — logo, ticker, motto, stay tuned. One dark screen. */
+/* D — huge mark, full-bleed tape, staggered motto. */
 .opt-d{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
-.opt-d .poster{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vh,4.25rem) 1.25rem clamp(1rem,3vh,1.75rem);gap:clamp(1.5rem,4.2vh,3rem)}
-.opt-d .brandlock{display:flex;flex-direction:column;align-items:center;gap:.8rem}
-.opt-d .sigil{height:112px;width:auto}
-.opt-d .name{height:28px;width:auto}
-.opt-d .lines{display:grid;gap:.65rem;justify-items:center;max-width:36rem}
-.opt-d h1{font-size:clamp(1.65rem,3.3vw,2.7rem);line-height:1.08;letter-spacing:-.02em;text-transform:none;font-weight:600}
-.opt-d .tuned{margin:0;color:var(--muted);font-weight:600;font-size:clamp(1rem,1.45vw,1.15rem);letter-spacing:.02em}
+.opt-d .poster{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(.75rem,1.6vh,1.2rem) 0 clamp(.4rem,1vh,.7rem);gap:clamp(.7rem,1.7vh,1.15rem)}
+.opt-d .brandlock{display:flex;flex-direction:column;align-items:center;gap:.7rem;padding-inline:1.25rem}
+.opt-d .sigil{height:272px;width:auto;animation:sigil-strike .95s ease-out both,sigil-glow 3.8s ease-in-out .95s infinite}
+.opt-d .name{height:60px;width:auto}
+.opt-d .lines{display:grid;gap:.7rem;justify-items:center;padding-inline:1.25rem}
+.opt-d h1{font-size:clamp(3rem,4.7vw,4.4rem);line-height:.88;letter-spacing:-.03em;text-transform:none;font-weight:700}
+.opt-d .phrase{display:block;opacity:0;transform:translateY(16px);animation:phrase-in .72s cubic-bezier(.16,.8,.24,1) forwards}
+.opt-d .phrase:nth-child(1){animation-delay:.42s}
+.opt-d .phrase:nth-child(2){animation-delay:.78s}
+.opt-d .phrase:nth-child(3){animation-delay:1.14s}
+.opt-d .accent{color:var(--pink);text-shadow:0 0 22px rgba(255,62,165,.38)}
+.opt-d .tuned{margin:0;color:var(--muted);font-weight:600;font-size:clamp(1.15rem,1.5vw,1.4rem);letter-spacing:.03em;opacity:0;animation:phrase-in .6s ease 1.5s forwards}
+@keyframes sigil-strike{
+  0%{opacity:0}
+  14%{opacity:1}
+  24%{opacity:.42}
+  40%{opacity:1}
+  50%{opacity:.7}
+  66%,100%{opacity:1}
+}
+@keyframes sigil-glow{
+  0%,100%{filter:drop-shadow(0 0 10px rgba(255,62,165,.42)) drop-shadow(0 0 18px rgba(45,226,255,.22))}
+  50%{filter:drop-shadow(0 0 18px rgba(255,62,165,.62)) drop-shadow(0 0 32px rgba(45,226,255,.34))}
+}
+@keyframes phrase-in{to{opacity:1;transform:none}}
 .opt-d .legal-slim{padding:.2rem 1rem .85rem;text-align:center;color:var(--dim);font-size:.68rem;font-weight:600;line-height:1.45}
 .opt-d .legal-slim p{margin:0}
 .opt-d .legal-slim a{color:var(--dim);text-decoration:underline;text-underline-offset:2px}
@@ -244,14 +262,15 @@ body.opt{overflow-x:clip}
   .htc-drop{margin-top:.28rem;padding-top:.22rem}
   .htc-drop img{height:22px}
 }
-.opt-d .glassbox{width:min(880px,calc(100% - .25rem),calc(38vh * 16 / 9));margin:0}
+.opt-d .glassbox{width:100%;margin:0;aspect-ratio:auto;height:auto;padding:.7rem 0;border:0;border-radius:0;background:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -1px 0 rgba(255,255,255,.08);container-type:normal}
+.opt-d .ht-rail{-webkit-mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 36px),transparent)}
 @media (max-width:700px){
-  .opt-d .poster{padding:1.75rem .7rem 1rem;gap:1.35rem}
-  .opt-d .brandlock{gap:.55rem}
-  .opt-d .sigil{height:76px}
-  .opt-d .name{height:22px}
-  .opt-d .glassbox{width:calc(100% - .25rem);aspect-ratio:auto;height:auto;padding:.75rem 0;container-type:normal}
-  .opt-d h1{font-size:1.55rem}
+  .opt-d .poster{padding:1.15rem 0 .75rem;gap:1rem}
+  .opt-d .brandlock{gap:.5rem}
+  .opt-d .sigil{height:160px}
+  .opt-d .name{height:42px}
+  .opt-d .glassbox{padding:.6rem 0}
+  .opt-d h1{font-size:clamp(2.45rem,11vw,2.85rem)}
   .htc{width:196px}
   .htc-parlay{width:min(320px,88vw)}
   .htc-legs .pk{font-size:.74rem}
@@ -259,4 +278,5 @@ body.opt{overflow-x:clip}
 }
 @media (prefers-reduced-motion:reduce){
   .ht-rail{mask-image:none;-webkit-mask-image:none}
+  .opt-d .sigil,.opt-d .phrase,.opt-d .tuned{animation:none;opacity:1;transform:none;filter:none}
 }
