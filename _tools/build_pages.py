@@ -608,26 +608,24 @@ OPT_D = (
         extra='<link rel="stylesheet" href="/assets/options.css">\n',
         body_class="opt opt-d",
     )
-    + header("#list")
-    + f'''<main id="main">
-<section class="motto" aria-labelledby="hero-h">
-  <div class="wrap motto-wrap">
-    <h1 id="hero-h">Your picks.<br>Your screen.<br>Your moment.</h1>
-  </div>
+    + f'''<main class="poster" id="main">
+  <img class="mark" src="/assets/img/wordmark.svg" alt="HuddleTape" width="148" height="30">
   <div class="glassbox" role="img" aria-label="{html.escape(D_LABEL)}">
     <div class="ht-rail" aria-hidden="true">
       <div class="ht-track"><div class="ht-seq">{htc_seq()}</div><div class="ht-seq">{htc_seq()}</div></div>
     </div>
   </div>
-</section>
-{opt_signup("option-d")}
-<p class="quiet wrap">HuddleTape doesn’t take or place bets. Sample data uses made-up names and numbers.</p>
+  <div class="lines">
+    <h1>{MOTTO}</h1>
+    <p class="tuned">Stay tuned.</p>
+  </div>
 </main>
+<footer class="legal-slim">
+  <p><span class="age">21+</span> Play responsibly. Set a budget before kickoff. Problem gambling? Call or text <a href="tel:18006973738">1-800-MY-RESET</a>. <a href="/privacy.html">Privacy</a> <a href="/terms.html">Terms</a></p>
+</footer>
+</body>
+</html>
 '''
-    + FOOT.replace(
-        "Prediction-market picks, on your TV.",
-        MOTTO,
-    )
 )
 
 opt_dir = os.path.join(SITE, "_options")
