@@ -237,6 +237,7 @@ def list_block(source, heading="h2"):
 </div>"""
 
 
+# Previous coming-soon homepage. Not written. The live index is poster_page() below.
 INDEX = (
     head("HuddleTape", extra=json_ld())
     + header("#list")
@@ -348,8 +349,8 @@ def legal(title, path, updated, body):
 PRIVACY = legal("Privacy Policy", "/privacy.html", "October 11, 2026", legal_body("privacy.html"))
 TERMS = legal("Terms of Use", "/terms.html", "October 11, 2026", legal_body("terms.html"))
 
+# index.html is the approved option D page, written after that markup is built.
 for name, content in {
-    "index.html": INDEX,
     "beta.html": BETA,
     "thanks.html": THANKS,
     "404.html": NOTFOUND,
@@ -361,8 +362,8 @@ for name, content in {
     print(name, "ok")
 
 
-# --- Hero options (preview only; does not change index.html) ---
-# Three coming-soon heroes for review. Underscore folder is unpublished by Jekyll.
+# --- Hero options. The live homepage is option D, written at the end of this file. ---
+# Underscore folder is unpublished by Jekyll. A, B, and C stay as rejected previews.
 
 PICKS = [
     ("Kayla", "Owls −6.5", "", "71%", ""),
@@ -616,16 +617,17 @@ D_LABEL = (
     "Made-up names and numbers."
 )
 
-OPT_D = (
-    head(
-        MOTTO,
-        MOTTO,
-        "/_options/d.html",
-        "noindex,nofollow",
-        extra='<link rel="stylesheet" href="/assets/options.css">\n',
-        body_class="opt opt-d",
-    )
-    + f'''<main class="poster" id="main">
+def poster_page(path, robots):
+    return (
+        head(
+            MOTTO,
+            MOTTO,
+            path,
+            robots,
+            extra='<link rel="stylesheet" href="/assets/options.css">\n',
+            body_class="opt opt-d",
+        )
+        + f'''<main class="poster" id="main">
   <div class="brandlock">
     <img class="sigil" src="/assets/img/mark.svg" alt="" width="560" height="340">
     <img class="name" src="/assets/img/wordmark.svg" alt="HuddleTape" width="483" height="98">
@@ -650,7 +652,13 @@ OPT_D = (
 </body>
 </html>
 '''
-)
+    )
+
+
+OPT_D = poster_page("/_options/d.html", "noindex,nofollow")
+with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as fh:
+    fh.write(poster_page("/", "index,follow"))
+print("index.html ok")
 
 opt_dir = os.path.join(SITE, "_options")
 os.makedirs(opt_dir, exist_ok=True)
