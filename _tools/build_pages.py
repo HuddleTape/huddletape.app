@@ -22,7 +22,7 @@ CHECK = (
 )
 
 
-def head(title, desc=DESC, path="/", robots="index,follow", extra=""):
+def head(title, desc=DESC, path="/", robots="index,follow", extra="", body_class=""):
     full = title if title.startswith("HuddleTape") else f"{title} · HuddleTape"
     return f"""<!doctype html>
 <html lang="en">
@@ -60,7 +60,7 @@ def head(title, desc=DESC, path="/", robots="index,follow", extra=""):
 <link rel="preload" href="/assets/fonts/barlow-sc-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
 {extra}</head>
-<body>
+<body{(' class="' + body_class + '"') if body_class else ""}>
 <a class="skip" href="#main">Skip to content</a>
 """
 
@@ -359,3 +359,191 @@ for name, content in {
     with open(os.path.join(SITE, name), "w", encoding="utf-8") as fh:
         fh.write(content)
     print(name, "ok")
+
+
+# --- Hero options (preview only; does not change index.html) ---
+# Three coming-soon heroes for review. Underscore folder is unpublished by Jekyll.
+
+PICKS = [
+    ("Kayla", "Owls −6.5", "", "71%", ""),
+    ("Marcus", "Over 47.5", "", "64%", ""),
+    ("Priya", "Moose −2.5", "Q3 · 21–14", "63%", "up"),
+    ("Andre", "Gulls +3.5", "Q4 · 17–20", "41%", "dn"),
+    ("Lena", "Owls −3", "", "58%", ""),
+]
+MOVE = {"up": ("▲5", "up 5"), "dn": ("▼8", "down 8")}
+TAPE_SR = (
+    "Sample data, made-up names and numbers. "
+    "Kayla, Owls minus 6.5, 71 percent. "
+    "Marcus, over 47.5, 64 percent. "
+    "Priya, Moose minus 2.5, third quarter 21 to 14, 63 percent, up 5. "
+    "Andre, Gulls plus 3.5, fourth quarter 17 to 20, 41 percent, down 8. "
+    "Lena, Owls minus 3, 58 percent."
+)
+
+
+def tape_item(who, pick, meta, pct, move):
+    meta_html = f'<span class="meta">{meta}</span>' if meta else ""
+    move_html = ""
+    if move:
+        glyph, _words = MOVE[move]
+        move_html = f'<span class="tick {move}" aria-hidden="true">{glyph}</span>'
+    return (
+        f'<span class="tape-item"><span class="who">{who}</span>'
+        f'<span class="pick">{pick}</span>{meta_html}'
+        f'<span class="pct">{pct}</span>{move_html}</span>'
+    )
+
+
+def tape(kind):
+    seq = "".join(tape_item(*p) for p in PICKS)
+    return (
+        f'<div class="tape tape-{kind}" aria-hidden="true"><div class="tape-track">'
+        f'<div class="tape-seq">{seq}</div><div class="tape-seq">{seq}</div>'
+        f"</div></div>"
+    )
+
+
+def picture(tight=False):
+    cls = "pic pic-tight" if tight else "pic"
+    return f'''<div class="{cls}" aria-hidden="true"><div class="pic-sky"></div><div class="pic-field"></div><div class="pic-band"></div><div class="pic-lights"></div><div class="pic-vignette"></div><div class="pic-grain"></div><div class="pic-sheen"></div></div>'''
+
+
+def scorebug():
+    return (
+        '<div class="bug" aria-hidden="true"><span class="bug-live">Live</span>'
+        '<span class="bug-team">Owls <b>21</b></span>'
+        '<span class="bug-team">Gulls <b>14</b></span>'
+        '<span class="bug-q">Q3<span>8:42</span></span></div>'
+        '<span class="sample-tag" aria-hidden="true">Sample</span>'
+    )
+
+
+def opt_signup(source):
+    return f'''<section class="opt-signup" aria-labelledby="list-h">
+  <div class="wrap opt-signup-grid">
+    <h2 id="list-h">Get early access.</h2>
+    {form(source)}
+  </div>
+</section>'''
+
+
+def opt_page(key, title, desc, body):
+    css = '<link rel="stylesheet" href="/assets/options.css">\n'
+    return (
+        head(title, desc, f"/_options/{key}.html", "noindex,nofollow", extra=css, body_class=f"opt opt-{key}")
+        + header("#list")
+        + f'<main id="main">\n{body}\n{opt_signup("option-" + key)}\n</main>\n'
+        + FOOT
+    )
+
+
+A_LABEL = (
+    "Sample data: a television in a dark room, with a game on. "
+    "Owls 21, Gulls 14, third quarter, 8:42. "
+    + TAPE_SR
+)
+B_LABEL = "Sample data: a ticker of prediction-market picks. " + TAPE_SR
+C_LABEL = (
+    "Sample data: the bottom of a broadcast. "
+    "Priya’s pick, Moose minus 2.5, third quarter 21 to 14, 63 percent, up 5. "
+    "Tailer has put the name Jordan on that pick. "
+    + TAPE_SR
+)
+
+OPT_A = opt_page(
+    "a",
+    "Option A",
+    "Your crew’s prediction-market picks, in a ticker along the bottom of the screen. HuddleTape doesn’t take or place bets. 21+.",
+    f'''<section class="room" aria-labelledby="hero-h">
+  <div class="wrap room-grid">
+    <div class="hero-copy">
+      <p class="kicker">Coming soon</p>
+      <h1 id="hero-h">Under the<br>picture.</h1>
+      <p class="lede">Your crew’s prediction-market picks, in a ticker along the bottom of the screen.</p>
+      <p class="plain">HuddleTape doesn’t take or place bets.</p>
+    </div>
+    <figure class="setpiece">
+      <div class="bezel">
+        <div class="screen" role="img" aria-label="{html.escape(A_LABEL)}">
+          {picture()}
+          {scorebug()}
+          {tape("glass")}
+        </div>
+      </div>
+      <figcaption><b>Sample data.</b> Made-up names and numbers.</figcaption>
+    </figure>
+  </div>
+</section>''',
+)
+
+OPT_B = opt_page(
+    "b",
+    "Option B",
+    "Your crew’s prediction-market picks: a name, the chance, and the score. HuddleTape doesn’t take or place bets. 21+.",
+    f'''<section class="poster" aria-labelledby="hero-h">
+  <div class="wrap poster-copy">
+    <p class="kicker">Coming soon</p>
+    <h1 id="hero-h">Read the <span class="ink">tape.</span></h1>
+  </div>
+  <div class="crawl" role="img" aria-label="{html.escape(B_LABEL)}">
+    {tape("band")}
+  </div>
+  <div class="wrap poster-sub">
+    <p class="lede">Your crew’s prediction-market picks: a name, the chance, and the score.</p>
+    <p class="plain">HuddleTape doesn’t take or place bets.</p>
+    <p class="sample-note"><b>Sample data.</b> Made-up names and numbers.</p>
+  </div>
+</section>''',
+)
+
+OPT_C = opt_page(
+    "c",
+    "Option C",
+    "Your name on a friend’s prediction-market pick, with the chance and the score. HuddleTape doesn’t take or place bets. 21+.",
+    f'''<section class="glasshero" aria-labelledby="hero-h">
+  <div class="glass-grid">
+    <div class="hero-copy">
+      <p class="kicker">Coming soon</p>
+      <h1 id="hero-h">Their pick.<br>Your name.</h1>
+      <p class="lede">Your name on a friend’s prediction-market pick, with the chance and the score.</p>
+      <p class="plain">HuddleTape doesn’t take or place bets.</p>
+    </div>
+    <figure class="frame">
+      <div class="screen screen-bleed" role="img" aria-label="{html.escape(C_LABEL)}">
+        {picture(tight=True)}
+        <div class="topbugs" aria-hidden="true">
+          {scorebug()}
+        </div>
+        <div class="stack" aria-hidden="true">
+          <div class="l3">
+            <div class="l3-copy">
+              <p class="l3-who">Priya</p>
+              <p class="l3-pick">Moose −2.5</p>
+              <p class="l3-meta">Q3 · 21–14</p>
+            </div>
+            <div class="l3-stat">
+              <p class="l3-pct">63%</p>
+              <p class="l3-move"><span class="tick up">▲5</span></p>
+            </div>
+            <div class="l3-support">
+              <img src="/assets/img/tailer.webp" alt="" width="220" height="145">
+              <span class="l3-with">with</span>
+              <span class="l3-you">Jordan</span>
+            </div>
+          </div>
+          {tape("glass")}
+        </div>
+      </div>
+    </figure>
+  </div>
+  <p class="wrap sample-note"><b>Sample data.</b> Made-up names and numbers.</p>
+</section>''',
+)
+
+opt_dir = os.path.join(SITE, "_options")
+os.makedirs(opt_dir, exist_ok=True)
+for name, content in {"a.html": OPT_A, "b.html": OPT_B, "c.html": OPT_C}.items():
+    with open(os.path.join(opt_dir, name), "w", encoding="utf-8") as fh:
+        fh.write(content)
+    print("_options/" + name, "ok")
