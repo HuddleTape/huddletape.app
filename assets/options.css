@@ -189,8 +189,10 @@ body.opt{overflow-x:clip}
 
 /* D — logo, ticker, motto, stay tuned. One dark screen. */
 .opt-d{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
-.opt-d .poster{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2.75rem,8vh,5.5rem) 1.25rem clamp(1.25rem,4vh,2.25rem);gap:clamp(1.85rem,5.5vh,4rem)}
-.opt-d .mark{height:clamp(22px,2.2vw,30px);width:auto}
+.opt-d .poster{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vh,4.25rem) 1.25rem clamp(1rem,3vh,1.75rem);gap:clamp(1.5rem,4.2vh,3rem)}
+.opt-d .brandlock{display:flex;flex-direction:column;align-items:center;gap:.8rem}
+.opt-d .sigil{height:112px;width:auto}
+.opt-d .name{height:28px;width:auto}
 .opt-d .lines{display:grid;gap:.65rem;justify-items:center;max-width:36rem}
 .opt-d h1{font-size:clamp(1.65rem,3.3vw,2.7rem);line-height:1.08;letter-spacing:-.02em;text-transform:none;font-weight:600}
 .opt-d .tuned{margin:0;color:var(--muted);font-weight:600;font-size:clamp(1rem,1.45vw,1.15rem);letter-spacing:.02em}
@@ -242,9 +244,12 @@ body.opt{overflow-x:clip}
   .htc-drop{margin-top:.28rem;padding-top:.22rem}
   .htc-drop img{height:22px}
 }
-.opt-d .glassbox{width:min(920px,calc(100% - .25rem),calc(46vh * 16 / 9));margin:0}
+.opt-d .glassbox{width:min(880px,calc(100% - .25rem),calc(38vh * 16 / 9));margin:0}
 @media (max-width:700px){
-  .opt-d .poster{padding:2.25rem .7rem 1.25rem;gap:1.65rem}
+  .opt-d .poster{padding:1.75rem .7rem 1rem;gap:1.35rem}
+  .opt-d .brandlock{gap:.55rem}
+  .opt-d .sigil{height:76px}
+  .opt-d .name{height:22px}
   .opt-d .glassbox{width:calc(100% - .25rem);aspect-ratio:auto;height:auto;padding:.75rem 0;container-type:normal}
   .opt-d h1{font-size:1.55rem}
   .htc{width:196px}

@@ -609,7 +609,10 @@ OPT_D = (
         body_class="opt opt-d",
     )
     + f'''<main class="poster" id="main">
-  <img class="mark" src="/assets/img/wordmark.svg" alt="HuddleTape" width="148" height="30">
+  <div class="brandlock">
+    <img class="sigil" src="/assets/img/mark.svg" alt="" width="560" height="340">
+    <img class="name" src="/assets/img/wordmark.svg" alt="HuddleTape" width="483" height="98">
+  </div>
   <div class="glassbox" role="img" aria-label="{html.escape(D_LABEL)}">
     <div class="ht-rail" aria-hidden="true">
       <div class="ht-track"><div class="ht-seq">{htc_seq()}</div><div class="ht-seq">{htc_seq()}</div></div>
