@@ -545,76 +545,65 @@ OPT_C = opt_page(
 MOTTO = "Your picks. Your screen. Your moment."
 
 
-def htc(who, color, pick, meta, pct, tick, direction, kind=""):
-    if kind == "win":
-        move = f'<span class="mark">{CHECK}</span>'
-    elif tick:
-        move = f'<span class="tick {direction}">{tick}</span>'
-    else:
-        move = ""
-    cls = "htc" + (f" htc-{kind}" if kind else "")
+def htc(who, color, pick, pct, tick, direction, stake):
     return (
-        f'<article class="{cls}">'
-        f'<div class="htc-id"><p class="htc-tag">Game</p>'
-        f'<p class="htc-who" style="color:{color}">{who}</p></div>'
+        f'<article class="htc" style="--who:{color}">'
+        f'<div class="htc-main">'
+        f'<p class="htc-tag">Game</p>'
+        f'<p class="htc-who">{who}</p>'
         f'<p class="htc-pick">{pick}</p>'
-        f'<div class="htc-foot"><p class="htc-line">{meta}</p>'
-        f'<p class="htc-chance"><span class="num">{pct}</span>{move}</p></div></article>'
+        f'<p class="htc-chance"><span class="num">{pct}</span><span class="word">chance</span>'
+        f'<span class="tick {direction}">{tick}</span></p>'
+        f'<p class="htc-stake">{stake}</p>'
+        f'</div></article>'
     )
 
 
-def leg(n, pick, pct, tick="", direction="", hit=False):
-    if hit:
-        side = f'<span class="lp">{pct}</span><span class="mark">{CHECK}</span>'
-    elif tick:
-        side = f'<span class="lp">{pct}</span><span class="tick {direction}">{tick}</span>'
-    else:
-        side = f'<span class="lp">{pct}</span>'
-    return f'<li><span class="n">{n}</span><span class="pk">{pick}</span><span class="end">{side}</span></li>'
+def leg(n, pick, pct, tick, direction):
+    return (
+        f'<li><span class="n">{n}</span><span class="pk">{pick}</span>'
+        f'<span class="end"><span class="lp">{pct}</span><span class="tick {direction}">{tick}</span></span></li>'
+    )
 
 
 def htc_parlay():
-    return f'''<article class="htc htc-parlay">
-      <div class="htc-top">
-        <div class="htc-id">
-          <p class="htc-tag">Game</p>
-          <p class="htc-who" style="color:#FF3EA5">Priya</p>
-        </div>
-        <p class="htc-chance"><span class="num">48%</span><span class="tick up">▲26</span></p>
+    return f'''<article class="htc htc-parlay" style="--who:#FF3EA5">
+      <div class="htc-main">
+        <p class="htc-tag">Game</p>
+        <p class="htc-who">Priya</p>
+        <p class="htc-pick">4-leg parlay</p>
+        <p class="htc-chance"><span class="num">50%</span><span class="word">chance</span><span class="tick up">▲26</span></p>
+        <p class="htc-stake">$5 → $20 · now $10</p>
       </div>
-      <p class="htc-pick">4-leg parlay</p>
       <ol class="htc-legs">
-        {leg(1, "Owls −6.5", "91%", hit=True)}
-        {leg(2, "Over 47.5", "84%", hit=True)}
-        {leg(3, "Moose −2.5", "63%", "▲5", "up")}
-        {leg(4, "Gulls +3.5", "41%", "▼8", "dn")}
+        {leg(1, "Joss 1+ H", "60%", "▲2", "up")}
+        {leg(2, "Maren 1+ H", "63%", "▲4", "up")}
+        {leg(3, "Ellis 5+ K", "83%", "▲5", "up")}
+        {leg(4, "Nova 13+ K", "62%", "▼8", "dn")}
       </ol>
-      <p class="htc-drop"><img src="/assets/img/tailer.webp" alt="" width="220" height="145"><span>Jordan</span></p>
     </article>'''
 
 
 def htc_seq():
     cards = [
-        htc("Kayla", "#F0C14A", "Owls −6.5", "Q3 · 8:42 · 21–14", "71%", "▲4", "up"),
-        htc("Marcus", "#2DE2FF", "Over 47.5", "Q3 · 8:42", "78%", "▲18", "up", "hot"),
+        htc("Kayla", "#F0C14A", "Owls −6.5", "71%", "▲4", "up", "$8 → $15 · now $11"),
         htc_parlay(),
-        htc("Andre", "#B6FF3B", "Gulls +3.5", "Final · 24–17", "100%", "", "", "win"),
-        htc("Lena", "#FFE7A8", "Moose −3", "Q4 · 2:11 · 17–20", "58%", "▼2", "dn"),
+        htc("Marcus", "#2DE2FF", "Over 47.5", "64%", "▲12", "up", "$5 → $9 · now $7"),
+        htc("Andre", "#B6FF3B", "Gulls +3.5", "41%", "▼8", "dn", "$10 → $19 · now $6"),
+        htc("Lena", "#FFE7A8", "Moose −3", "58%", "▲1", "up", "$6 → $11 · now $8"),
     ]
     return "".join(cards)
 
 
 D_LABEL = (
-    "Sample data. HuddleTape cards scrolling on a dark screen. "
-    "Kayla, Owls minus 6.5, third quarter 8:42, score 21 to 14, 71 percent, up 4. "
-    "Marcus heating up, over 47.5, 78 percent, up 18. "
-    "Priya’s 4-leg parlay at 48 percent, up 26. "
-    "Owls minus 6.5, 91 percent, hit. Over 47.5, 84 percent, hit. "
-    "Moose minus 2.5, 63 percent, up 5. Gulls plus 3.5, 41 percent, down 8. "
-    "Tailer has put the name Jordan on Priya’s parlay. "
-    "Andre, Gulls plus 3.5, final 24 to 17, 100 percent, a winner. "
-    "Lena, Moose minus 3, fourth quarter 2:11, score 17 to 20, 58 percent, down 2. "
-    "Made-up names and numbers."
+    "Sample data. A slim tape of HuddleTape cards. "
+    "Kayla, Owls minus 6.5, 71 percent chance, up 4. "
+    "Priya’s 4-leg parlay, 50 percent chance, up 26. "
+    "Joss 1 plus hits, 60 percent, up 2. Maren 1 plus hits, 63 percent, up 4. "
+    "Ellis 5 plus strikeouts, 83 percent, up 5. Nova 13 plus strikeouts, 62 percent, down 8. "
+    "Marcus, over 47.5, 64 percent, up 12. "
+    "Andre, Gulls plus 3.5, 41 percent, down 8. "
+    "Lena, Moose minus 3, 58 percent, up 1. Made-up names and numbers."
 )
 
 def poster_page(path, robots):
