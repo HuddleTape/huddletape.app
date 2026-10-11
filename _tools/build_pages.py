@@ -11,10 +11,10 @@ SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 URL = "https://huddletape.app"
 EMAIL = "huddletape.app@gmail.com"
 DESC = (
-    "Friends’ picks, on a ticker over whatever’s on TV. "
+    "Your crew’s prediction-market picks, on a ticker over whatever’s on TV. "
     "HuddleTape doesn’t take or place bets. 21+."
 )
-OG_ALT = "HuddleTape on a television: a sample ticker of friends’ picks over the picture. Made-up names and numbers."
+OG_ALT = "HuddleTape on a television: a sample ticker of prediction-market picks over the picture. Made-up names and numbers."
 CHECK = (
     '<svg class="ck" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16">'
     '<path d="M3.2 8.3 6.4 11.5 12.8 4.4" fill="none" stroke="currentColor" '
@@ -85,7 +85,7 @@ FOOT = f"""<footer class="foot">
   <div class="wrap foot-top">
     <div>
       <img class="word" src="/assets/img/wordmark.svg" alt="HuddleTape" width="148" height="30">
-      <p class="tag">Friends’ picks, on your TV.</p>
+      <p class="tag">Prediction-market picks, on your TV.</p>
     </div>
     <nav aria-label="Company">
       <p class="col-label">Company</p>
@@ -101,7 +101,7 @@ FOOT = f"""<footer class="foot">
     </div>
   </div>
   <div class="wrap foot-legal">
-    <p>Not affiliated with any sportsbook, exchange, team, or league. Pictures show sample data.</p>
+    <p>Not affiliated with any other company. Pictures show sample data.</p>
     <p>© 2026 HuddleTape</p>
   </div>
 </footer>
@@ -199,7 +199,7 @@ def form(source):
   <input type="hidden" name="_next" value="{URL}/thanks.html">
   <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_autoresponse" value="You&#39;re on the HuddleTape list. Thanks for signing up. We&#39;ll email you when there&#39;s something to try. — The HuddleTape team">
+  <input type="hidden" name="_autoresponse" value="You&#39;re on the HuddleTape list. Thanks for signing up. We&#39;ll email you when there&#39;s something to try. — HuddleTape">
   <input type="hidden" name="source" value="{source}">
   <div class="hp" aria-hidden="true">
     <label for="hp-{source}">Leave this field empty</label>
@@ -215,7 +215,7 @@ def form(source):
   </div>
   <div class="field">
     <label for="tv-{source}">TV or streamer <span class="opt">(optional)</span></label>
-    <input type="text" id="tv-{source}" name="tv_device" maxlength="100" placeholder="e.g. Onn 4K, Google TV Streamer">
+    <input type="text" id="tv-{source}" name="tv_device" maxlength="100" placeholder="The set in your living room">
   </div>
   <div class="check">
     <input type="checkbox" id="age-{source}" name="confirmed_21_plus" value="yes" required>
@@ -246,7 +246,7 @@ INDEX = (
     <div class="hero-copy">
       <p class="kicker">Coming soon</p>
       <h1 id="hero-h">Watch it together.</h1>
-      <p class="lede">Friends’ picks, on a ticker over whatever’s on TV.</p>
+      <p class="lede">Your crew’s prediction-market picks, on a ticker over whatever’s on TV.</p>
       <p class="plain">HuddleTape doesn’t take or place bets.</p>
     </div>
     {demo()}
@@ -262,7 +262,7 @@ INDEX = (
 BETA = (
     head(
         "Get early access",
-        "Get on the HuddleTape list. Friends’ picks, on a ticker over whatever’s on TV. 21+.",
+        "Get on the HuddleTape list. Your crew’s prediction-market picks, on a ticker over whatever’s on TV. 21+.",
         "/beta.html",
     )
     + header("#list")
@@ -272,7 +272,7 @@ BETA = (
     <div>
       <p class="kicker">Coming soon</p>
       <h1 id="list-h">Get early access.</h1>
-      <p class="sub">Friends’ picks, on a ticker over whatever’s on TV.</p>
+      <p class="sub">Your crew’s prediction-market picks, on a ticker over whatever’s on TV.</p>
       <p class="plain">HuddleTape doesn’t take or place bets.</p>
     </div>
     {list_block("early-access", heading="")}
