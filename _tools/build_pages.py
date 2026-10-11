@@ -14,10 +14,38 @@ SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 URL = "https://huddletape.app"
 EMAIL = "huddletape.app@gmail.com"
 DESC = (
-    "Live markets and your crew’s positions, over the game. On Google TV. "
+    "Your crew’s picks, over the game. "
     "Join from any phone browser. No app. 21+."
 )
-OG_ALT = "HuddleTape on a television: prediction markets and the crew’s positions over the game. Sample data."
+OG_ALT = "HuddleTape on a television: your crew’s picks over the game. Sample data."
+LINE_D = (
+    "HuddleTape does not take bets, hold money, set odds, or give advice. "
+    "If you connect an account, the connection is read-only. "
+    "HuddleTape can show positions you already have. "
+    "It cannot place, change, or cash out anything."
+)
+LINE_A = (
+    "HuddleTape is not affiliated with, endorsed by, or paid by any sportsbook, "
+    "prediction market, team, or league."
+)
+LINE_G = (
+    "Private beta. You install it yourself on a TV that uses Google TV software, "
+    "if that TV lets an app draw over other apps. Not on Google Play. Not a Google product. "
+    "Google TV is the name of this device’s software experience and a trademark of Google LLC."
+)
+LINE_P = "HuddleTape puts your crew’s picks on a ticker over the game."
+LINE_T = (
+    "When a friend rides along with your pick, the screen says Tailing and shows their name. "
+    "That does not place a bet."
+)
+LINE_PCT = (
+    "A card can show a percent. That number comes from outside HuddleTape or from what someone typed. "
+    "HuddleTape does not set it, and it is not advice."
+)
+LINE_SHOT = (
+    "The screenshot is read on the phone. That image is not uploaded and is not kept. "
+    "Only the picks you confirm are sent to the TV."
+)
 
 
 def qr_svg():
@@ -98,7 +126,7 @@ FOOT = f"""<footer class="foot">
   <div class="wrap foot-top">
     <div>
       <img class="word" src="/assets/img/wordmark.svg" alt="HuddleTape" width="148" height="30">
-      <p class="tag">Live markets on Google TV.</p>
+      <p class="tag">Your crew’s picks, on your TV.</p>
     </div>
     <nav aria-label="Product">
       <p class="col-label">Product</p>
@@ -120,7 +148,7 @@ FOOT = f"""<footer class="foot">
     </div>
   </div>
   <div class="wrap foot-legal">
-    <p>Not affiliated with any sportsbook, exchange, team, or league. Pictures show sample data.</p>
+    <p>{LINE_A} Pictures show sample data.</p>
     <p>© 2026 HuddleTape LLC</p>
   </div>
 </footer>
@@ -150,9 +178,9 @@ def demo():
         "Sample data: a television showing a game, with HuddleTape over the picture. "
         "A gold tab reads TAILING, Sam, above Kayla’s 3-leg parlay at 21 percent: "
         "Owls (hit), Over 47.5 (hit), and Moose −2.5 (live). "
-        "A ticker scrolls sample bets for Big Tex, Coach Dee, Momo, Jake, and Rio. "
+        "A ticker scrolls sample picks for Big Tex, Coach Dee, Momo, Jake, and Rio. "
         "A QR code invites friends to scan and add picks they already have. Room code DEN. "
-        "A phone in front shows adding an open bet by screenshot or a read-only connected account."
+        "A phone in front shows adding a pick by screenshot or a read-only connected account."
     )
     return f"""<figure class="stage">
   <input class="pause" id="pause-demo" type="checkbox">
@@ -166,7 +194,7 @@ def demo():
           <div class="turf"><span>20</span><span>30</span><span>40</span><span>50</span><span>40</span></div>
           <div class="vignette"></div>
           <div class="bug"><span class="bug-live">Live</span><span class="bug-team">Owls <b>17</b></span><span class="bug-team">Gulls <b>14</b></span><span class="bug-q">Q3<span>8:42</span></span></div>
-          <span class="sample-tag">Sample</span>
+          <span class="sample-tag">Sample · made-up names</span>
         </div>
         <div class="lower" aria-hidden="true">
           <div class="feature">
@@ -178,7 +206,7 @@ def demo():
               <div class="slip-top">
                 <span class="who">Kayla</span>
                 <span class="what">3-leg parlay</span>
-                <span class="pct">21%<small>chance</small></span>
+                <span class="pct">21%</span>
               </div>
               <ol class="legs">
                 <li class="hit"><span class="rail"></span><span class="leg-name">Owls</span><span class="leg-st">Hit</span></li>
@@ -200,7 +228,7 @@ def demo():
     <div class="phone" aria-hidden="true">
       <div class="phone-screen">
         <div class="ph-top"><img src="/assets/img/mark.svg" alt="" width="22" height="14"><span>Room DEN</span></div>
-        <p class="ph-h">Add an open bet</p>
+        <p class="ph-h">Add a pick</p>
         <div class="ph-row"><b>Screenshot</b><span>A slip you already have</span></div>
         <div class="ph-row"><b>Connected account</b><span>Read-only</span></div>
         <div class="ph-slip"><span>Kayla</span><span>3-leg</span><b>21%</b></div>
@@ -210,7 +238,7 @@ def demo():
     </div>
   </div>
   <figcaption>
-    <span><b>Sample data.</b> Made-up names, teams, and numbers.</span>
+    <span><b>Sample · made-up names.</b></span>
     <label class="pause-label" for="pause-demo"><span class="when-play">Pause</span><span class="when-paused">Play</span></label>
   </figcaption>
 </figure>"""
@@ -218,8 +246,8 @@ def demo():
 
 FAQS = [
     (
-        "Is HuddleTape a sportsbook?",
-        "No. HuddleTape doesn’t take, place, or settle wagers, and you can’t bet through it. It shows bets your crew already made somewhere else, so the room can watch together. It isn’t a sportsbook, and it doesn’t give betting advice.",
+        "Does HuddleTape take bets?",
+        LINE_D,
     ),
     (
         "Do my friends need to download anything?",
@@ -231,21 +259,17 @@ FAQS = [
     ),
     (
         "Which TVs does it work on?",
-        "Google TV and Android TV. Fire TV, Roku, Apple TV, and Samsung or LG apps aren’t supported yet. A Google TV streamer in any HDMI port works.",
-    ),
-    (
-        "Will everyone see how much I put down?",
-        "No. Dollar amounts are off by default. The ticker shows names, picks, and a percent chance. You can hide your picks from the ticker anytime.",
+        LINE_G,
     ),
     (
         "What happens to my screenshots and connected accounts?",
-        'Screenshots are read on your phone and never uploaded. If you connect an account, access is read-only and the key is stored only on your TV. See the <a href="/privacy.html">Privacy Policy</a>.',
-        "Screenshots are read on your phone and never uploaded. If you connect an account, access is read-only and the key is stored only on your TV. See the Privacy Policy.",
+        LINE_SHOT + ' See the <a href="/privacy.html">Privacy Policy</a>. ' + LINE_D,
+        LINE_SHOT + " " + LINE_D + " See the Privacy Policy.",
     ),
     (
         "When can I get it?",
-        'The private beta is coming soon. <a href="/beta.html">Join the beta list</a> and we’ll email you when host spots open. The Google Play launch comes after the beta.',
-        "The private beta is coming soon. Join the beta list and we’ll email you when host spots open. The Google Play launch comes after the beta.",
+        'The private beta is coming soon. <a href="/beta.html">Join the beta list</a> and we’ll email you when host spots open.',
+        "The private beta is coming soon. Join the beta list and we’ll email you when host spots open.",
     ),
 ]
 
@@ -270,7 +294,6 @@ def json_ld():
             "@type": "SoftwareApplication",
             "name": "HuddleTape",
             "applicationCategory": "EntertainmentApplication",
-            "operatingSystem": "Google TV, Android TV",
         },
         {
             "@type": "FAQPage",
@@ -310,8 +333,8 @@ def form(source):
   </div>
   <div class="field">
     <label for="tv-{source}">TV or streamer <span class="opt">(optional)</span></label>
-    <input type="text" id="tv-{source}" name="tv_device" maxlength="100" placeholder="e.g. Onn 4K, Google TV Streamer" aria-describedby="tv-hint-{source}">
-    <span class="hint" id="tv-hint-{source}">Helps us check your setup will work. Fire TV and Roku aren't supported yet.</span>
+    <input type="text" id="tv-{source}" name="tv_device" maxlength="100" placeholder="Model, if you know it" aria-describedby="tv-hint-{source}">
+    <span class="hint" id="tv-hint-{source}">Optional. It helps us check the setup.</span>
   </div>
   <div class="check">
     <input type="checkbox" id="age-{source}" name="confirmed_21_plus" value="yes" required>
@@ -330,7 +353,7 @@ def beta_block(source, heading="h2"):
   <div class="wrap beta">
     <div>
       <{heading} id="beta-h">Join the beta.</{heading}>
-      <p class="sub">The private beta is coming soon. The crew joins free from a phone browser. Free during the beta.</p>
+      <p class="sub">The private beta is coming soon. The crew joins from a phone browser. Free during the beta.</p>
     </div>
     {form(source)}
   </div>
@@ -338,14 +361,15 @@ def beta_block(source, heading="h2"):
 
 
 INDEX = (
-    head("HuddleTape · Prediction markets, on your TV", extra=json_ld())
+    head("HuddleTape · Your crew’s picks, on your TV", extra=json_ld())
     + header("#beta")
     + f"""<main id="main">
 <section class="hero" aria-labelledby="hero-h">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <h1 id="hero-h">Prediction<br>markets.<br>On your TV.</h1>
-      <p class="lede">Live markets and your crew’s positions, over the game.</p>
+      <h1 id="hero-h">Your crew’s<br>picks,<br>on your TV.</h1>
+      <p class="lede">{LINE_P}</p>
+      <p class="note">{LINE_D}</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#beta">Join the beta</a>
         <a class="text-link" href="#how">How it works</a>
@@ -362,7 +386,7 @@ INDEX = (
       <li>
         <span class="n">01</span>
         <h3>Open a room</h3>
-        <p>HuddleTape on Google TV or Android TV. The ticker sits on the picture.</p>
+        <p>Open HuddleTape on your TV. The ticker sits on the picture.</p>
       </li>
       <li>
         <span class="n">02</span>
@@ -375,7 +399,7 @@ INDEX = (
         <p>Add a screenshot, or connect an account. Names and picks scroll with the room.</p>
       </li>
     </ol>
-    <p class="note">Google TV and Android TV. Fire TV, Roku, Apple TV, and Samsung or LG apps aren’t supported yet. A Google TV streamer in an HDMI port works.</p>
+    <p class="note">{LINE_G}</p>
   </div>
 </section>
 
@@ -383,8 +407,8 @@ INDEX = (
   <div class="wrap">
     <div class="split">
       <div class="copy">
-        <h2 id="tape-h">Join the winning team.</h2>
-        <p>Show your support by tailing a friend’s bet. Tailer drops your name right on the tape, so the whole room knows who’s riding with it.</p>
+        <h2 id="tape-h">Tailing.</h2>
+        <p>{LINE_T}</p>
       </div>
       <div class="crop">
         <div class="crop-scene" aria-hidden="true"></div>
@@ -401,13 +425,13 @@ INDEX = (
             </div>
           </div>
         </div>
-        <span class="sample-tag">Sample</span>
+        <span class="sample-tag">Sample · made-up names</span>
       </div>
     </div>
     <div class="split flip">
       <div class="copy">
         <h2>Legs light up.</h2>
-        <p>A parlay shows every leg with its live chance, and each one checks off when it hits.</p>
+        <p>{LINE_PCT} Each leg checks off when it hits.</p>
       </div>
       <div class="crop">
         <div class="crop-scene" aria-hidden="true"></div>
@@ -425,7 +449,7 @@ INDEX = (
             </ol>
           </div>
         </div>
-        <span class="sample-tag">Sample</span>
+        <span class="sample-tag">Sample · made-up names</span>
       </div>
     </div>
   </div>
@@ -450,7 +474,7 @@ INDEX = (
 BETA = (
     head(
         "Join the beta",
-        "Sign up for the HuddleTape private beta. Live markets and your crew’s positions on Google TV. The private beta is coming soon. 21+.",
+        "Sign up for the HuddleTape private beta. Your crew’s picks, over the game. The private beta is coming soon. 21+.",
         "/beta.html",
     )
     + header("#beta")
@@ -467,7 +491,7 @@ THANKS = (
       <img src="/assets/img/tailer.webp" alt="Tailer, the HuddleTape golden retriever" width="220" height="145">
     </div>
     <h1>You’re on the list.</h1>
-    <p>We’ll email you when a host spot opens. Your crew joins from a phone browser. No app, and free.</p>
+    <p>We’ll email you when a host spot opens. Your crew joins from a phone browser. No app.</p>
     <a class="btn btn-primary" href="/">Back to HuddleTape</a>
   </div>
 </main>

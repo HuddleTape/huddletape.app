@@ -42,7 +42,7 @@ Built in:
 
 ## Compliance checklist (applied)
 
-No sportsbook, exchange, league or team names or logos; no "Super Bowl"/"March Madness"; no lock/tout/guarantee language; nothing encourages betting. All ticker visuals are made-up and labeled **Sample data**. No app-store or "Coming soon" buttons; the CTA is the beta signup. Footer on every page: 21+ · Play responsibly · 1-800-MY-RESET · privacy · terms · support · © 2026 HuddleTape LLC. Respects `prefers-reduced-motion`.
+“Sportsbook” and “prediction market” appear only in the affiliation line. No league or team names or logos; no "Super Bowl"/"March Madness"; no lock/tout/guarantee language; nothing encourages betting. All ticker visuals are made-up and labeled **Sample · made-up names**. No app-store or "Coming soon" buttons; the CTA is the beta signup. Footer on every page: 21+ · Play responsibly · 1-800-MY-RESET · privacy · terms · support · © 2026 HuddleTape LLC. Respects `prefers-reduced-motion`.
 
 ## Deploying (after approval)
 
