@@ -15,7 +15,7 @@ URL = "https://huddletape.app"
 EMAIL = "huddletape.app@gmail.com"
 DESC = (
     "Live markets and your crew’s positions, over the game. On Google TV. "
-    "Join from any phone browser. No app. 30-day free trial, then $1.99/mo or $9.99/yr. 21+."
+    "Join from any phone browser. No app. 21+."
 )
 OG_ALT = "HuddleTape on a television: prediction markets and the crew’s positions over the game. Sample data."
 
@@ -76,7 +76,7 @@ def head(title, desc=DESC, path="/", robots="index,follow", extra=""):
 
 def header(beta_href):
     return f"""<header class="top">
-  <a class="promo" href="{beta_href}">Private beta · Thanksgiving 2026<span class="promo-rest"> · Google Play · January 2027</span></a>
+  <a class="promo" href="{beta_href}">Private beta · Coming soon<span class="promo-rest"> · Join the waitlist</span></a>
   <div class="bar">
     <div class="wrap">
       <a class="brand" href="/" aria-label="HuddleTape home">
@@ -85,7 +85,6 @@ def header(beta_href):
       <nav class="nav" aria-label="Main">
         <a class="hide-md" href="/#how">How it works</a>
         <a class="hide-lg" href="/#tape">The tape</a>
-        <a class="hide-md" href="/#pricing">Pricing</a>
         <a class="hide-lg" href="/#faq">FAQ</a>
         <a class="btn btn-primary btn-sm" href="{beta_href}">Join the beta</a>
       </nav>
@@ -105,7 +104,6 @@ FOOT = f"""<footer class="foot">
       <p class="col-label">Product</p>
       <a href="/#how">How it works</a>
       <a href="/#tape">The tape</a>
-      <a href="/#pricing">Pricing</a>
       <a href="/#faq">FAQ</a>
     </nav>
     <nav aria-label="Company">
@@ -229,7 +227,7 @@ FAQS = [
     ),
     (
         "What does it cost?",
-        "The private beta is free. At the Google Play launch, the TV owner gets a 30-day free trial, then $1.99 a month or $9.99 a year. Joining from a phone is free.",
+        "The private beta is free.",
     ),
     (
         "Which TVs does it work on?",
@@ -246,8 +244,8 @@ FAQS = [
     ),
     (
         "When can I get it?",
-        'The private beta opens around Thanksgiving 2026. The public Google Play launch is planned for January 2027. <a href="/beta.html">Join the beta</a> for a host spot.',
-        "The private beta opens around Thanksgiving 2026. The public Google Play launch is planned for January 2027. Join the beta for a host spot.",
+        'The private beta is coming soon. <a href="/beta.html">Join the beta list</a> and we’ll email you when host spots open. The Google Play launch comes after the beta.',
+        "The private beta is coming soon. Join the beta list and we’ll email you when host spots open. The Google Play launch comes after the beta.",
     ),
 ]
 
@@ -273,14 +271,6 @@ def json_ld():
             "name": "HuddleTape",
             "applicationCategory": "EntertainmentApplication",
             "operatingSystem": "Google TV, Android TV",
-            "offers": {
-                "@type": "AggregateOffer",
-                "lowPrice": "1.99",
-                "highPrice": "9.99",
-                "priceCurrency": "USD",
-                "offerCount": "2",
-                "description": "30-day free trial, then $1.99 per month or $9.99 per year for the TV owner. Joining from a phone is free.",
-            },
         },
         {
             "@type": "FAQPage",
@@ -340,7 +330,7 @@ def beta_block(source, heading="h2"):
   <div class="wrap beta">
     <div>
       <{heading} id="beta-h">Join the beta.</{heading}>
-      <p class="sub">Host spots around Thanksgiving 2026. Google Play in January 2027. The crew joins free from a phone browser. Free during the beta.</p>
+      <p class="sub">The private beta is coming soon. The crew joins free from a phone browser. Free during the beta.</p>
     </div>
     {form(source)}
   </div>
@@ -441,32 +431,6 @@ INDEX = (
   </div>
 </section>
 
-<section class="band" id="pricing" aria-labelledby="price-h">
-  <div class="wrap">
-    <h2 id="price-h">The TV owner pays.</h2>
-    <p class="sub">30 days free. Then one price for the set that hosts the room.</p>
-    <ul class="board">
-      <li class="year">
-        <h3>Year</h3>
-        <p class="amt">$9.99<span class="per">/yr</span></p>
-        <p>30-day free trial. $9.99 for the year, or $23.88 if billed monthly.</p>
-      </li>
-      <li>
-        <h3>Month</h3>
-        <p class="amt">$1.99<span class="per">/mo</span></p>
-        <p>30-day free trial. Same ticker. Cancel in Google Play.</p>
-      </li>
-      <li>
-        <h3>Phone</h3>
-        <p class="amt">$0</p>
-        <p>Join from any browser. No app.</p>
-      </li>
-    </ul>
-    <p class="fine">The private beta is free for hosts. These prices start at the Google Play launch in January 2027, billed through Google Play after the trial. This pays for the display.</p>
-    <a class="btn btn-primary" href="#beta">Join the beta</a>
-  </div>
-</section>
-
 <section class="band" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
     <h2 id="faq-h">FAQ</h2>
@@ -486,7 +450,7 @@ INDEX = (
 BETA = (
     head(
         "Join the beta",
-        "Sign up for the HuddleTape private beta. Live markets and your crew’s positions on Google TV. Hosts around Thanksgiving 2026. 21+.",
+        "Sign up for the HuddleTape private beta. Live markets and your crew’s positions on Google TV. The private beta is coming soon. 21+.",
         "/beta.html",
     )
     + header("#beta")
