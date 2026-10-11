@@ -544,32 +544,49 @@ OPT_C = opt_page(
 MOTTO = "Your picks. Your screen. Your moment."
 
 
-def htc(who, color, pick, clock, score, pct, tick, direction):
-    move = f'<span class="tick {direction}">{tick}</span>' if tick else ""
+def htc(who, color, pick, meta, pct, tick, direction, kind=""):
+    if kind == "win":
+        move = f'<span class="mark">{CHECK}</span>'
+    elif tick:
+        move = f'<span class="tick {direction}">{tick}</span>'
+    else:
+        move = ""
+    cls = "htc" + (f" htc-{kind}" if kind else "")
     return (
-        f'<article class="htc"><p class="htc-tag">Game</p>'
-        f'<p class="htc-who" style="color:{color}">{who}</p>'
+        f'<article class="{cls}">'
+        f'<div class="htc-id"><p class="htc-tag">Game</p>'
+        f'<p class="htc-who" style="color:{color}">{who}</p></div>'
         f'<p class="htc-pick">{pick}</p>'
-        f'<p class="htc-line"><span>{clock}</span><span>{score}</span></p>'
-        f'<p class="htc-chance"><span class="num">{pct}</span>{move}</p></article>'
+        f'<div class="htc-foot"><p class="htc-line">{meta}</p>'
+        f'<p class="htc-chance"><span class="num">{pct}</span>{move}</p></div></article>'
     )
+
+
+def leg(n, pick, pct, tick="", direction="", hit=False):
+    if hit:
+        side = f'<span class="lp">{pct}</span><span class="mark">{CHECK}</span>'
+    elif tick:
+        side = f'<span class="lp">{pct}</span><span class="tick {direction}">{tick}</span>'
+    else:
+        side = f'<span class="lp">{pct}</span>'
+    return f'<li><span class="n">{n}</span><span class="pk">{pick}</span><span class="end">{side}</span></li>'
 
 
 def htc_parlay():
     return f'''<article class="htc htc-parlay">
       <div class="htc-top">
-        <div>
+        <div class="htc-id">
           <p class="htc-tag">Game</p>
           <p class="htc-who" style="color:#FF3EA5">Priya</p>
-          <p class="htc-pick">4-leg parlay</p>
         </div>
         <p class="htc-chance"><span class="num">48%</span><span class="tick up">▲26</span></p>
       </div>
+      <p class="htc-pick">4-leg parlay</p>
       <ol class="htc-legs">
-        <li><span class="n">1</span><span class="pk">Owls −6.5</span><span class="end">{CHECK}</span></li>
-        <li><span class="n">2</span><span class="pk">Over 47.5</span><span class="end">{CHECK}</span></li>
-        <li><span class="n">3</span><span class="pk">Moose −2.5<span class="meta">Q3 · 21–14</span></span><span class="end"><span class="lp">63%</span><span class="tick up">▲5</span></span></li>
-        <li><span class="n">4</span><span class="pk">Gulls +3.5<span class="meta">Q4 · 17–20</span></span><span class="end"><span class="lp">41%</span><span class="tick dn">▼8</span></span></li>
+        {leg(1, "Owls −6.5", "91%", hit=True)}
+        {leg(2, "Over 47.5", "84%", hit=True)}
+        {leg(3, "Moose −2.5", "63%", "▲5", "up")}
+        {leg(4, "Gulls +3.5", "41%", "▼8", "dn")}
       </ol>
       <p class="htc-drop"><img src="/assets/img/tailer.webp" alt="" width="220" height="145"><span>Jordan</span></p>
     </article>'''
@@ -577,26 +594,26 @@ def htc_parlay():
 
 def htc_seq():
     cards = [
-        htc("Kayla", "#F0C14A", "Owls −6.5", "Q3", "8:42 · 21–14", "71%", "▲4", "up"),
-        htc("Marcus", "#2DE2FF", "Over 47.5", "Q3", "8:42", "64%", "▲2", "up"),
+        htc("Kayla", "#F0C14A", "Owls −6.5", "Q3 · 8:42 · 21–14", "71%", "▲4", "up"),
+        htc("Marcus", "#2DE2FF", "Over 47.5", "Q3 · 8:42", "78%", "▲18", "up", "hot"),
         htc_parlay(),
-        htc("Andre", "#B6FF3B", "Gulls +3.5", "Q4", "2:11 · 17–20", "41%", "▼8", "dn"),
-        htc("Lena", "#FFE7A8", "Owls −3", "Q3", "8:42 · 21–14", "58%", "", ""),
+        htc("Andre", "#B6FF3B", "Gulls +3.5", "Final · 24–17", "100%", "", "", "win"),
+        htc("Lena", "#FFE7A8", "Moose −3", "Q4 · 2:11 · 17–20", "58%", "▼2", "dn"),
     ]
     return "".join(cards)
 
 
 D_LABEL = (
-    "Sample data. A plain dark screen with HuddleTape cards scrolling across it. "
+    "Sample data. HuddleTape cards scrolling on a dark screen. "
     "Kayla, Owls minus 6.5, third quarter 8:42, score 21 to 14, 71 percent, up 4. "
-    "Marcus, over 47.5, 64 percent, up 2. "
+    "Marcus heating up, over 47.5, 78 percent, up 18. "
     "Priya’s 4-leg parlay at 48 percent, up 26. "
-    "Owls minus 6.5, hit. Over 47.5, hit. "
-    "Moose minus 2.5, third quarter 21 to 14, 63 percent, up 5. "
-    "Gulls plus 3.5, fourth quarter 17 to 20, 41 percent, down 8. "
+    "Owls minus 6.5, 91 percent, hit. Over 47.5, 84 percent, hit. "
+    "Moose minus 2.5, 63 percent, up 5. Gulls plus 3.5, 41 percent, down 8. "
     "Tailer has put the name Jordan on Priya’s parlay. "
-    "Andre, Gulls plus 3.5, fourth quarter 2:11, score 17 to 20, 41 percent, down 8. "
-    "Lena, Owls minus 3, 58 percent. Made-up names and numbers."
+    "Andre, Gulls plus 3.5, final 24 to 17, 100 percent, a winner. "
+    "Lena, Moose minus 3, fourth quarter 2:11, score 17 to 20, 58 percent, down 2. "
+    "Made-up names and numbers."
 )
 
 OPT_D = (
