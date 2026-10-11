@@ -541,9 +541,98 @@ OPT_C = opt_page(
 </section>''',
 )
 
+MOTTO = "Your picks. Your screen. Your moment."
+
+
+def htc(who, color, pick, clock, score, pct, tick, direction):
+    move = f'<span class="tick {direction}">{tick}</span>' if tick else ""
+    return (
+        f'<article class="htc"><p class="htc-tag">Game</p>'
+        f'<p class="htc-who" style="color:{color}">{who}</p>'
+        f'<p class="htc-pick">{pick}</p>'
+        f'<p class="htc-line"><span>{clock}</span><span>{score}</span></p>'
+        f'<p class="htc-chance"><span class="num">{pct}</span>{move}</p></article>'
+    )
+
+
+def htc_parlay():
+    return f'''<article class="htc htc-parlay">
+      <div class="htc-top">
+        <div>
+          <p class="htc-tag">Game</p>
+          <p class="htc-who" style="color:#FF3EA5">Priya</p>
+          <p class="htc-pick">4-leg parlay</p>
+        </div>
+        <p class="htc-chance"><span class="num">48%</span><span class="tick up">▲26</span></p>
+      </div>
+      <ol class="htc-legs">
+        <li><span class="n">1</span><span class="pk">Owls −6.5</span><span class="end">{CHECK}</span></li>
+        <li><span class="n">2</span><span class="pk">Over 47.5</span><span class="end">{CHECK}</span></li>
+        <li><span class="n">3</span><span class="pk">Moose −2.5<span class="meta">Q3 · 21–14</span></span><span class="end"><span class="lp">63%</span><span class="tick up">▲5</span></span></li>
+        <li><span class="n">4</span><span class="pk">Gulls +3.5<span class="meta">Q4 · 17–20</span></span><span class="end"><span class="lp">41%</span><span class="tick dn">▼8</span></span></li>
+      </ol>
+      <p class="htc-drop"><img src="/assets/img/tailer.webp" alt="" width="220" height="145"><span>Jordan</span></p>
+    </article>'''
+
+
+def htc_seq():
+    cards = [
+        htc("Kayla", "#F0C14A", "Owls −6.5", "Q3", "8:42 · 21–14", "71%", "▲4", "up"),
+        htc("Marcus", "#2DE2FF", "Over 47.5", "Q3", "8:42", "64%", "▲2", "up"),
+        htc_parlay(),
+        htc("Andre", "#B6FF3B", "Gulls +3.5", "Q4", "2:11 · 17–20", "41%", "▼8", "dn"),
+        htc("Lena", "#FFE7A8", "Owls −3", "Q3", "8:42 · 21–14", "58%", "", ""),
+    ]
+    return "".join(cards)
+
+
+D_LABEL = (
+    "Sample data. A plain dark screen with HuddleTape cards scrolling across it. "
+    "Kayla, Owls minus 6.5, third quarter 8:42, score 21 to 14, 71 percent, up 4. "
+    "Marcus, over 47.5, 64 percent, up 2. "
+    "Priya’s 4-leg parlay at 48 percent, up 26. "
+    "Owls minus 6.5, hit. Over 47.5, hit. "
+    "Moose minus 2.5, third quarter 21 to 14, 63 percent, up 5. "
+    "Gulls plus 3.5, fourth quarter 17 to 20, 41 percent, down 8. "
+    "Tailer has put the name Jordan on Priya’s parlay. "
+    "Andre, Gulls plus 3.5, fourth quarter 2:11, score 17 to 20, 41 percent, down 8. "
+    "Lena, Owls minus 3, 58 percent. Made-up names and numbers."
+)
+
+OPT_D = (
+    head(
+        MOTTO,
+        MOTTO,
+        "/_options/d.html",
+        "noindex,nofollow",
+        extra='<link rel="stylesheet" href="/assets/options.css">\n',
+        body_class="opt opt-d",
+    )
+    + header("#list")
+    + f'''<main id="main">
+<section class="motto" aria-labelledby="hero-h">
+  <div class="wrap motto-wrap">
+    <h1 id="hero-h">Your picks.<br>Your screen.<br>Your moment.</h1>
+  </div>
+  <div class="glassbox" role="img" aria-label="{html.escape(D_LABEL)}">
+    <div class="ht-rail" aria-hidden="true">
+      <div class="ht-track"><div class="ht-seq">{htc_seq()}</div><div class="ht-seq">{htc_seq()}</div></div>
+    </div>
+  </div>
+</section>
+{opt_signup("option-d")}
+<p class="quiet wrap">HuddleTape doesn’t take or place bets. Sample data uses made-up names and numbers.</p>
+</main>
+'''
+    + FOOT.replace(
+        "Prediction-market picks, on your TV.",
+        MOTTO,
+    )
+)
+
 opt_dir = os.path.join(SITE, "_options")
 os.makedirs(opt_dir, exist_ok=True)
-for name, content in {"a.html": OPT_A, "b.html": OPT_B, "c.html": OPT_C}.items():
+for name, content in {"a.html": OPT_A, "b.html": OPT_B, "c.html": OPT_C, "d.html": OPT_D}.items():
     with open(os.path.join(opt_dir, name), "w", encoding="utf-8") as fh:
         fh.write(content)
     print("_options/" + name, "ok")
