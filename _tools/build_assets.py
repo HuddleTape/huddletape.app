@@ -39,8 +39,9 @@ fav = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs>{L.
        f'<rect width="400" height="400" rx="88" fill="#0A0614"/>'
        f'<g transform="translate({200 - 257 * s:.1f} {200 - 256 * s:.1f}) scale({s})">{mark}</g></svg>')
 open(os.path.join(SITE, 'favicon.svg'), 'w').write(fav)
+# ViewBox is shifted left of the artwork so the mark's visual mass, not its box, centers on the wordmark.
 open(os.path.join(IMG, 'mark.svg'), 'w').write(
-    f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 90 560 340"><defs>{L.glow(7)}</defs>{mark}</svg>')
+    f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="-35 90 560 340"><defs>{L.glow(7)}</defs>{mark}</svg>')
 
 # ---- raster icons from the 400px avatar ----
 av = Image.open(os.path.join(BR, 'x-kit', 'huddletape-avatar-400.png')).convert('RGBA')
