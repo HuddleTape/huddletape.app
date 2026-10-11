@@ -405,3 +405,6 @@ form.signup .btn{width:100%}
   .feature .gold-tab{opacity:1;transform:translateY(0) rotate(-2deg)}
   .rail::after{transform:scaleX(1);opacity:1}
 }
+
+/* Oct 10: stat progress bars not in the app yet; hide leg fill bars */
+.rail{display:none!important}
