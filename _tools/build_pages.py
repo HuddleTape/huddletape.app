@@ -205,7 +205,6 @@ def form(source):
     return f"""<form class="signup" action="https://formsubmit.co/{EMAIL}" method="POST" aria-describedby="form-note-{source}">
   <input type="hidden" name="_subject" value="New HuddleTape early access signup">
   <input type="hidden" name="_next" value="{URL}/thanks.html">
-  <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_template" value="table">
   <input type="hidden" name="_autoresponse" value="You&#39;re on the HuddleTape list. Thanks for signing up. We&#39;ll email you when there&#39;s something to try. — HuddleTape">
   <input type="hidden" name="source" value="{source}">
@@ -621,7 +620,6 @@ def notify_section():
   <form class="signup notify-form" id="notify-form" action="https://formsubmit.co/{EMAIL}" method="POST" aria-describedby="form-note-notify">
     <input type="hidden" name="_subject" value="HuddleTape notify-me signup">
     <input type="hidden" name="_next" value="{URL}/notified.html">
-    <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_autoresponse" value="{auto}">
     <input type="hidden" name="source" value="notify-me">
