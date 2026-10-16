@@ -20,6 +20,14 @@ CHECK = (
     '<path d="M3.2 8.3 6.4 11.5 12.8 4.4" fill="none" stroke="currentColor" '
     'stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 )
+# Swap REPLACE-ME for the GoatCounter site code after the owner creates an account.
+GC = """<script data-goatcounter="https://REPLACE-ME.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+"""
+NOTIFY_AUTORESPONSE = (
+    "Thanks! HuddleTape beta signups are coming soon, and you'll be the first to know. "
+    "— Tailer & the HuddleTape team"
+)
 
 
 def head(title, desc=DESC, path="/", robots="index,follow", extra="", body_class=""):
@@ -59,7 +67,7 @@ def head(title, desc=DESC, path="/", robots="index,follow", extra="", body_class
 <link rel="preload" href="/assets/fonts/barlow-sc-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/barlow-sc-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
-{extra}</head>
+{extra}{GC}</head>
 <body{(' class="' + body_class + '"') if body_class else ""}>
 <a class="skip" href="#main">Skip to content</a>
 """
@@ -197,7 +205,6 @@ def form(source):
     return f"""<form class="signup" action="https://formsubmit.co/{EMAIL}" method="POST" aria-describedby="form-note-{source}">
   <input type="hidden" name="_subject" value="New HuddleTape early access signup">
   <input type="hidden" name="_next" value="{URL}/thanks.html">
-  <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_template" value="table">
   <input type="hidden" name="_autoresponse" value="You&#39;re on the HuddleTape list. Thanks for signing up. We&#39;ll email you when there&#39;s something to try. — HuddleTape">
   <input type="hidden" name="source" value="{source}">
@@ -606,6 +613,47 @@ D_LABEL = (
     "Lena, Moose minus 3, 58 percent, up 1. Made-up names and numbers."
 )
 
+def notify_section():
+    auto = html.escape(NOTIFY_AUTORESPONSE, quote=True)
+    return f"""<section class="notify" aria-labelledby="notify-h">
+  <p class="notify-line" id="notify-h">Be the first to get notified when beta signups go live.</p>
+  <form class="signup notify-form" id="notify-form" action="https://formsubmit.co/{EMAIL}" method="POST" aria-describedby="form-note-notify">
+    <input type="hidden" name="_subject" value="HuddleTape notify-me signup">
+    <input type="hidden" name="_next" value="{URL}/notified.html">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_autoresponse" value="{auto}">
+    <input type="hidden" name="source" value="notify-me">
+    <div class="hp" aria-hidden="true">
+      <label for="hp-notify">Leave this field empty</label>
+      <input type="text" id="hp-notify" name="_honey" tabindex="-1" autocomplete="off">
+    </div>
+    <div class="notify-row">
+      <div class="field">
+        <label for="email-notify">Email</label>
+        <input type="email" id="email-notify" name="email" autocomplete="email" inputmode="email" required maxlength="120" placeholder="you@example.com">
+      </div>
+      <button class="btn btn-primary" type="submit">Notify me</button>
+    </div>
+    <p class="fineprint" id="form-note-notify">We’ll only email you about HuddleTape.</p>
+  </form>
+</section>"""
+
+
+NOTIFY_EVENT = """<script>
+document.getElementById("notify-form").addEventListener("submit", function () {
+  var gc = window.goatcounter;
+  if (gc && typeof gc.count === "function") {
+    gc.count({
+      path: "notify-me-submit",
+      title: "HuddleTape notify-me signup",
+      event: true
+    });
+  }
+});
+</script>
+"""
+
+
 def poster_page(path, robots):
     return (
         head(
@@ -634,13 +682,41 @@ def poster_page(path, robots):
     </h1>
     <p class="tuned">Stay tuned.</p>
   </div>
+  {notify_section()}
+</main>
+<footer class="legal-slim">
+  <p><span class="age">21+</span> Play responsibly. Set a budget before kickoff. Problem gambling? Call or text <a href="tel:18006973738">1-800-MY-RESET</a>. <a href="/privacy.html">Privacy</a> <a href="/terms.html">Terms</a></p>
+</footer>
+{NOTIFY_EVENT}</body>
+</html>
+'''
+    )
+
+
+def notified_page():
+    return (
+        head(
+            "You're on the list",
+            "We’ll email you when beta signups go live.",
+            "/notified.html",
+            "noindex",
+            extra='<link rel="stylesheet" href="/assets/options.css">\n',
+            body_class="opt opt-d",
+        )
+        + """<main class="poster" id="main">
+  <img class="thanks-card" src="/assets/img/beta-coming-soon.png" width="1200" height="630" alt="HuddleTape. Thanks for signing up. Beta’s coming soon. You’ll be the first to know when signups open. Tailer, the HuddleTape golden retriever.">
+  <div class="lines">
+    <h1>You’re on the list.</h1>
+    <p class="notify-thanks">We’ll email you when beta signups go live.</p>
+    <a class="btn btn-primary" href="/">Back to HuddleTape</a>
+  </div>
 </main>
 <footer class="legal-slim">
   <p><span class="age">21+</span> Play responsibly. Set a budget before kickoff. Problem gambling? Call or text <a href="tel:18006973738">1-800-MY-RESET</a>. <a href="/privacy.html">Privacy</a> <a href="/terms.html">Terms</a></p>
 </footer>
 </body>
 </html>
-'''
+"""
     )
 
 
@@ -648,6 +724,9 @@ OPT_D = poster_page("/_options/d.html", "noindex,nofollow")
 with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as fh:
     fh.write(poster_page("/", "index,follow"))
 print("index.html ok")
+with open(os.path.join(SITE, "notified.html"), "w", encoding="utf-8") as fh:
+    fh.write(notified_page())
+print("notified.html ok")
 
 opt_dir = os.path.join(SITE, "_options")
 os.makedirs(opt_dir, exist_ok=True)

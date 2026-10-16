@@ -262,3 +262,20 @@ body.opt{overflow-x:clip}
   .ht-rail{mask-image:none;-webkit-mask-image:none}
   .opt-d .sigil,.opt-d .phrase,.opt-d .tuned{animation:none;opacity:1;transform:none;filter:none}
 }
+
+/* Homepage notify-me. Sits under the motto; safe center keeps it reachable when the stack is taller than the screen. */
+.opt-d .poster{justify-content:safe center}
+.opt-d .notify{width:min(32rem,calc(100% - 2.5rem))}
+.opt-d .notify-line{margin:0 0 .75rem;color:var(--text);font-weight:600;font-size:clamp(1rem,1.35vw,1.12rem);letter-spacing:.015em;line-height:1.35}
+.opt-d form.notify-form{margin:0;padding:.9rem .9rem .75rem;text-align:left;border-top:2px solid var(--cyan);box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.opt-d .notify-row{display:flex;gap:.55rem;align-items:flex-end}
+.opt-d .notify-row .field{flex:1 1 auto;min-width:0;margin:0}
+.opt-d .notify-form .btn{width:auto;flex:none}
+.opt-d .notify-form .fineprint{margin:.65rem 0 0;text-align:center}
+.opt-d .thanks-card{width:min(46rem,calc(100% - 2.5rem));height:auto;border:1px solid rgba(255,255,255,.16);border-radius:var(--r);box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 32px rgba(45,226,255,.12)}
+.opt-d .notify-thanks{margin:0;max-width:18em;color:var(--muted);font-weight:600;font-size:clamp(1.15rem,1.5vw,1.4rem);letter-spacing:.03em;line-height:1.35}
+.opt-d .lines .btn{margin-top:.15rem}
+@media (max-width:599px){
+  .opt-d .notify-row{flex-direction:column;align-items:stretch}
+  .opt-d .notify-form .btn{width:100%}
+}
