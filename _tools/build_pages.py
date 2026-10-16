@@ -706,10 +706,7 @@ def notified_page():
             body_class="opt opt-d",
         )
         + """<main class="poster" id="main">
-  <div class="brandlock">
-    <img class="sigil" src="/assets/img/mark.svg" alt="" width="560" height="340">
-    <img class="name" src="/assets/img/wordmark.svg" alt="HuddleTape" width="483" height="98">
-  </div>
+  <img class="thanks-card" src="/assets/img/beta-coming-soon.png" width="1200" height="630" alt="HuddleTape. Thanks for signing up. Beta’s coming soon. You’ll be the first to know when signups open. Tailer, the HuddleTape golden retriever.">
   <div class="lines">
     <h1>You’re on the list.</h1>
     <p class="notify-thanks">We’ll email you when beta signups go live.</p>
