@@ -28,6 +28,13 @@ NOTIFY_AUTORESPONSE = (
     "Thanks! HuddleTape beta signups are coming soon, and you'll be the first to know. "
     "— Tailer & the HuddleTape team"
 )
+# Closed-beta free year. Shown only on beta.html, around that page's form.
+OFFER_COPY = (
+    "If you are 21 or older and in the United States, and you stay opted in to this closed test for 14 days in a row, you can get one free year of HuddleTape. After you qualify, we send you a code. The free year starts when you redeem that code and lasts 12 months. It ends on its own, and you are charged only if you later choose to subscribe."
+)
+OFFER_FINE = (
+    "One free year per eligible tester. Limited to people 21 or older in the United States, and void where prohibited. We may change or end the offer before you qualify or before we send a code. Redeem by the date we send with the code. Nothing renews unless you start a paid plan yourself."
+)
 
 
 def head(title, desc=DESC, path="/", robots="index,follow", extra="", body_class=""):
@@ -201,8 +208,11 @@ def json_ld():
     return '<script type="application/ld+json">\n' + json.dumps(data, ensure_ascii=False, indent=2) + "\n</script>\n"
 
 
-def form(source):
-    return f"""<form class="signup" action="https://formsubmit.co/{EMAIL}" method="POST" aria-describedby="form-note-{source}">
+def form(source, offer=False):
+    described = f"form-note-{source}"
+    if offer:
+        described = f"offer-{source} {described} offer-note-{source}"
+    return f"""<form class="signup" action="https://formsubmit.co/{EMAIL}" method="POST" aria-describedby="{described}">
   <input type="hidden" name="_subject" value="New HuddleTape early access signup">
   <input type="hidden" name="_next" value="{URL}/thanks.html">
   <input type="hidden" name="_template" value="table">
@@ -236,8 +246,14 @@ def form(source):
 </form>"""
 
 
-def list_block(source, heading="h2"):
+def list_block(source, heading="h2", offer=False):
     title = f'<{heading} id="list-h">Get early access.</{heading}>' if heading else ""
+    if offer:
+        return f"""<div class="signup-block" id="list">
+  <p class="offer" id="offer-{source}">{OFFER_COPY}</p>
+  {form(source, offer=True)}
+  <p class="fineprint offer-note" id="offer-note-{source}">{OFFER_FINE}</p>
+</div>"""
     return f"""<div class="signup-block" id="list">
   {title}
   {form(source)}
@@ -283,7 +299,7 @@ BETA = (
       <p class="sub">Your crew’s prediction-market picks, on a ticker over whatever’s on TV.</p>
       <p class="plain">HuddleTape doesn’t take or place bets.</p>
     </div>
-    {list_block("early-access", heading="")}
+    {list_block("early-access", heading="", offer=True)}
   </div>
 </section>
 </main>
