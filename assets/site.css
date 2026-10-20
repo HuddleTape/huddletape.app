@@ -348,10 +348,13 @@ form.signup{background:var(--night-2);border:1px solid var(--line);border-radius
 .field{display:grid;gap:.3rem;margin-bottom:.85rem}
 .field label{font-weight:700}
 .field .opt{color:var(--dim);font-weight:600}
-.field input[type=text],.field input[type=email]{width:100%;min-height:48px;padding:.6rem .7rem;border-radius:var(--r);border:1px solid rgba(255,255,255,.28);background:#0A0614;color:var(--text);font:500 1.05rem var(--display)}
+.field input[type=text],.field input[type=email],.field select{width:100%;min-height:48px;padding:.6rem .7rem;border-radius:var(--r);border:1px solid rgba(255,255,255,.28);background:#0A0614;color:var(--text);font:500 1.05rem/1.3 var(--display)}
 .field input::placeholder{color:#A89FBE}
-.field input:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(45,226,255,.28)}
-.field input:user-invalid{border-color:#FF8AAD}
+.field input:focus,.field select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(45,226,255,.28)}
+.field input:user-invalid,.field select:user-invalid{border-color:#FF8AAD}
+.field select{padding-right:2.4rem;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.25 6 6.25 11 1.25' fill='none' stroke='%232DE2FF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .75rem center;background-size:12px 8px}
+.field select:invalid{color:#A89FBE}
+.field select option{color:var(--text);background:#0A0614}
 .hint{color:var(--dim);font-size:.95rem}
 .check{display:flex;gap:.7rem;align-items:flex-start;margin:.15rem 0 1rem;font-weight:600}
 .check p{margin:.2rem 0 0}
