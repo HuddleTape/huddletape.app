@@ -83,28 +83,46 @@
       <span class="phrase">Your screen.</span>
       <span class="phrase accent">Your moment.</span>
     </h1>
-    <p class="tuned">Stay tuned.</p>
   </div>
-  <section class="notify" aria-labelledby="notify-h">
-  <p class="notify-line" id="notify-h">Be the first to get notified when beta signups go live.</p>
-  <form class="signup notify-form" id="notify-form" action="https://formsubmit.co/huddletape.app@gmail.com" method="POST" aria-describedby="form-note-notify">
-    <input type="hidden" name="_subject" value="HuddleTape notify-me signup">
-    <input type="hidden" name="_next" value="https://huddletape.app/notified.html">
+  <section class="notify" aria-labelledby="beta-h">
+  <p class="notify-line" id="beta-h">Closed beta for Google TV. Testers get one free year.</p>
+  <form class="signup notify-form" id="beta-signup" action="https://formsubmit.co/huddletape.app@gmail.com" method="POST" aria-describedby="form-note-beta">
+    <input type="hidden" name="_subject" value="New HuddleTape beta tester signup">
+    <input type="hidden" name="_next" value="https://huddletape.app/thanks.html">
     <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_autoresponse" value="Thanks! HuddleTape beta signups are coming soon, and you&#x27;ll be the first to know. — Tailer &amp; the HuddleTape team">
-    <input type="hidden" name="source" value="notify-me">
+    <input type="hidden" name="_autoresponse" value="You&#39;re on the HuddleTape list. Thanks for signing up. We&#39;ll email you when there&#39;s something to try. — HuddleTape">
+    <input type="hidden" name="source" value="homepage-beta">
     <div class="hp" aria-hidden="true">
-      <label for="hp-notify">Leave this field empty</label>
-      <input type="text" id="hp-notify" name="_honey" tabindex="-1" autocomplete="off">
+      <label for="hp-beta">Leave this field empty</label>
+      <input type="text" id="hp-beta" name="_honey" tabindex="-1" autocomplete="off">
     </div>
-    <div class="notify-row">
-      <div class="field">
-        <label for="email-notify">Email</label>
-        <input type="email" id="email-notify" name="email" autocomplete="email" inputmode="email" required maxlength="120" placeholder="you@example.com">
-      </div>
-      <button class="btn btn-primary" type="submit">Notify me</button>
+    <div class="field">
+      <label for="name-beta">Name</label>
+      <input type="text" id="name-beta" name="name" autocomplete="name" required maxlength="80" placeholder="First name is fine">
     </div>
-    <p class="fineprint" id="form-note-notify">We’ll only email you about HuddleTape.</p>
+    <div class="field">
+      <label for="email-beta">Email</label>
+      <input type="email" id="email-beta" name="email" autocomplete="email" inputmode="email" required maxlength="120" placeholder="you@example.com">
+    </div>
+    <div class="field">
+      <label for="tv-or-device">TV or streamer</label>
+      <select id="tv-or-device" name="tv_or_device" required>
+    <option value="" disabled selected>Select your TV or streamer</option>
+    <option value="Google TV or Android TV set (TCL, Hisense, Sony, etc.)">Google TV or Android TV set (TCL, Hisense, Sony, etc.)</option>
+    <option value="Google TV Streamer or Chromecast with Google TV">Google TV Streamer or Chromecast with Google TV</option>
+    <option value="Other Android TV box (Nvidia Shield, Onn, etc.)">Other Android TV box (Nvidia Shield, Onn, etc.)</option>
+    <option value="Roku" class="tv-other">Roku</option>
+    <option value="Samsung or LG TV" class="tv-other">Samsung or LG TV</option>
+    <option value="Fire TV" class="tv-other">Fire TV</option>
+    <option value="Apple TV" class="tv-other">Apple TV</option>
+    <option value="Not sure" class="tv-unsure">Not sure</option>
+      </select>
+      <p class="device-note note-other" id="note-other">HuddleTape runs on Google TV and Android TV (Android 8.0+). You can still join with a Google TV Streamer or Chromecast with Google TV plugged into your TV.</p>
+      <p class="device-note note-unsure" id="note-unsure">Check your TV’s settings for Google TV or Android TV, or pick a streamer.</p>
+      <p class="sr" id="device-status" role="status"></p>
+    </div>
+    <button class="btn btn-primary" type="submit">Join the beta</button>
+    <p class="fineprint" id="form-note-beta">We’ll only email you about HuddleTape.</p>
   </form>
 </section>
 </main>
@@ -112,16 +130,33 @@
   <p><span class="age">21+</span> Play responsibly. Set a budget before kickoff. Problem gambling? Call or text <a href="tel:18006973738">1-800-MY-RESET</a>. <a href="/privacy.html">Privacy</a> <a href="/terms.html">Terms</a></p>
 </footer>
 <script>
-document.getElementById("notify-form").addEventListener("submit", function () {
-  var gc = window.goatcounter;
-  if (gc && typeof gc.count === "function") {
-    gc.count({
-      path: "notify-me-submit",
-      title: "HuddleTape notify-me signup",
-      event: true
-    });
+(function () {
+  var form = document.getElementById("beta-signup");
+  var select = document.getElementById("tv-or-device");
+  var status = document.getElementById("device-status");
+  var notes = { "tv-other": "note-other", "tv-unsure": "note-unsure" };
+  function sync() {
+    var picked = select.options[select.selectedIndex];
+    var id = picked ? notes[picked.className] || "" : "";
+    var note = id ? document.getElementById(id) : null;
+    var text = note ? note.textContent : "";
+    if (status.textContent !== text) status.textContent = text;
+    if (id) select.setAttribute("aria-describedby", id);
+    else select.removeAttribute("aria-describedby");
   }
-});
+  select.addEventListener("change", sync);
+  window.addEventListener("pageshow", sync);
+  form.addEventListener("submit", function () {
+    var gc = window.goatcounter;
+    if (gc && typeof gc.count === "function") {
+      gc.count({
+        path: "beta-signup-submit",
+        title: "HuddleTape beta signup",
+        event: true
+      });
+    }
+  });
+})();
 </script>
 </body>
 </html>

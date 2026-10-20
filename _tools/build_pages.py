@@ -24,9 +24,22 @@ CHECK = (
 GC = """<script data-goatcounter="https://REPLACE-ME.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 """
-NOTIFY_AUTORESPONSE = (
-    "Thanks! HuddleTape beta signups are coming soon, and you'll be the first to know. "
-    "— Tailer & the HuddleTape team"
+BETA_LINE = "Closed beta for Google TV. Testers get one free year."
+NOTE_OTHER = (
+    "HuddleTape runs on Google TV and Android TV (Android 8.0+). "
+    "You can still join with a Google TV Streamer or Chromecast with Google TV plugged into your TV."
+)
+NOTE_UNSURE = "Check your TV’s settings for Google TV or Android TV, or pick a streamer."
+# (label, option class). Class drives the inline compatibility note.
+TV_OPTIONS = (
+    ("Google TV or Android TV set (TCL, Hisense, Sony, etc.)", ""),
+    ("Google TV Streamer or Chromecast with Google TV", ""),
+    ("Other Android TV box (Nvidia Shield, Onn, etc.)", ""),
+    ("Roku", "tv-other"),
+    ("Samsung or LG TV", "tv-other"),
+    ("Fire TV", "tv-other"),
+    ("Apple TV", "tv-other"),
+    ("Not sure", "tv-unsure"),
 )
 # Closed-beta free year. Shown only on beta.html, around that page's form.
 OFFER_COPY = (
@@ -629,43 +642,81 @@ D_LABEL = (
     "Lena, Moose minus 3, 58 percent, up 1. Made-up names and numbers."
 )
 
-def notify_section():
-    auto = html.escape(NOTIFY_AUTORESPONSE, quote=True)
-    return f"""<section class="notify" aria-labelledby="notify-h">
-  <p class="notify-line" id="notify-h">Be the first to get notified when beta signups go live.</p>
-  <form class="signup notify-form" id="notify-form" action="https://formsubmit.co/{EMAIL}" method="POST" aria-describedby="form-note-notify">
-    <input type="hidden" name="_subject" value="HuddleTape notify-me signup">
-    <input type="hidden" name="_next" value="{URL}/notified.html">
+def beta_signup_section():
+    # Same autoresponse string the beta.html form already sends.
+    auto = (
+        "You&#39;re on the HuddleTape list. Thanks for signing up. "
+        "We&#39;ll email you when there&#39;s something to try. — HuddleTape"
+    )
+    opts = ['    <option value="" disabled selected>Select your TV or streamer</option>']
+    for label, kind in TV_OPTIONS:
+        cls = f' class="{kind}"' if kind else ""
+        esc = html.escape(label)
+        opts.append(f'    <option value="{esc}"{cls}>{esc}</option>')
+    options = "\n".join(opts)
+    return f"""<section class="notify" aria-labelledby="beta-h">
+  <p class="notify-line" id="beta-h">{BETA_LINE}</p>
+  <form class="signup notify-form" id="beta-signup" action="https://formsubmit.co/{EMAIL}" method="POST" aria-describedby="form-note-beta">
+    <input type="hidden" name="_subject" value="New HuddleTape beta tester signup">
+    <input type="hidden" name="_next" value="{URL}/thanks.html">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_autoresponse" value="{auto}">
-    <input type="hidden" name="source" value="notify-me">
+    <input type="hidden" name="source" value="homepage-beta">
     <div class="hp" aria-hidden="true">
-      <label for="hp-notify">Leave this field empty</label>
-      <input type="text" id="hp-notify" name="_honey" tabindex="-1" autocomplete="off">
+      <label for="hp-beta">Leave this field empty</label>
+      <input type="text" id="hp-beta" name="_honey" tabindex="-1" autocomplete="off">
     </div>
-    <div class="notify-row">
-      <div class="field">
-        <label for="email-notify">Email</label>
-        <input type="email" id="email-notify" name="email" autocomplete="email" inputmode="email" required maxlength="120" placeholder="you@example.com">
-      </div>
-      <button class="btn btn-primary" type="submit">Notify me</button>
+    <div class="field">
+      <label for="name-beta">Name</label>
+      <input type="text" id="name-beta" name="name" autocomplete="name" required maxlength="80" placeholder="First name is fine">
     </div>
-    <p class="fineprint" id="form-note-notify">We’ll only email you about HuddleTape.</p>
+    <div class="field">
+      <label for="email-beta">Email</label>
+      <input type="email" id="email-beta" name="email" autocomplete="email" inputmode="email" required maxlength="120" placeholder="you@example.com">
+    </div>
+    <div class="field">
+      <label for="tv-or-device">TV or streamer</label>
+      <select id="tv-or-device" name="tv_or_device" required>
+{options}
+      </select>
+      <p class="device-note note-other" id="note-other">{NOTE_OTHER}</p>
+      <p class="device-note note-unsure" id="note-unsure">{NOTE_UNSURE}</p>
+      <p class="sr" id="device-status" role="status"></p>
+    </div>
+    <button class="btn btn-primary" type="submit">Join the beta</button>
+    <p class="fineprint" id="form-note-beta">We’ll only email you about HuddleTape.</p>
   </form>
 </section>"""
 
 
-NOTIFY_EVENT = """<script>
-document.getElementById("notify-form").addEventListener("submit", function () {
-  var gc = window.goatcounter;
-  if (gc && typeof gc.count === "function") {
-    gc.count({
-      path: "notify-me-submit",
-      title: "HuddleTape notify-me signup",
-      event: true
-    });
+BETA_EVENT = """<script>
+(function () {
+  var form = document.getElementById("beta-signup");
+  var select = document.getElementById("tv-or-device");
+  var status = document.getElementById("device-status");
+  var notes = { "tv-other": "note-other", "tv-unsure": "note-unsure" };
+  function sync() {
+    var picked = select.options[select.selectedIndex];
+    var id = picked ? notes[picked.className] || "" : "";
+    var note = id ? document.getElementById(id) : null;
+    var text = note ? note.textContent : "";
+    if (status.textContent !== text) status.textContent = text;
+    if (id) select.setAttribute("aria-describedby", id);
+    else select.removeAttribute("aria-describedby");
   }
-});
+  select.addEventListener("change", sync);
+  window.addEventListener("pageshow", sync);
+  form.addEventListener("submit", function () {
+    var gc = window.goatcounter;
+    if (gc && typeof gc.count === "function") {
+      gc.count({
+        path: "beta-signup-submit",
+        title: "HuddleTape beta signup",
+        event: true
+      });
+    }
+  });
+})();
 </script>
 """
 
@@ -696,14 +747,13 @@ def poster_page(path, robots):
       <span class="phrase">Your screen.</span>
       <span class="phrase accent">Your moment.</span>
     </h1>
-    <p class="tuned">Stay tuned.</p>
   </div>
-  {notify_section()}
+  {beta_signup_section()}
 </main>
 <footer class="legal-slim">
   <p><span class="age">21+</span> Play responsibly. Set a budget before kickoff. Problem gambling? Call or text <a href="tel:18006973738">1-800-MY-RESET</a>. <a href="/privacy.html">Privacy</a> <a href="/terms.html">Terms</a></p>
 </footer>
-{NOTIFY_EVENT}</body>
+{BETA_EVENT}</body>
 </html>
 '''
     )
